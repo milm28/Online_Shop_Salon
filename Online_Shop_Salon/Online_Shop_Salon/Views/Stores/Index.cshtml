@@ -1,0 +1,72 @@
+﻿@model Online_Shop_Salon.Models.tbl_Store
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
+}
+@using Online_Shop_Salon.Models;
+<h2>Lista Proizvoda</h2>
+
+<p>
+    @Html.ActionLink(" Create New", "Create", null, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+</p>
+
+
+<table id="tableProducts" class="table table-striped table-bordered" style="width: 100%;">
+    <thead>
+        <th> @Html.DisplayNameFor(model => model.Store_Name)</th>
+        <th>@Html.DisplayNameFor(model => model.Owner_Name)</th>
+        <th>@Html.DisplayNameFor(model => model.City)</th>
+        <th> @Html.DisplayNameFor(model => model.Zip_Code)</th>
+        <th>@Html.DisplayNameFor(model => model.Address)</th>
+        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+        <th>@Html.DisplayNameFor(model => model.Email)</th>
+        <th>@Html.DisplayNameFor(model => model.Web_Site)</th>
+        <th>@Html.DisplayNameFor(model => model.PIB)</th>
+        <th>@Html.DisplayNameFor(model => model.Bank_Account)</th>
+        <th>Tools</th>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Stores)
+        { 
+            <tr>
+                <td>@item.Store_Name</td>
+                <td><b>@item.Owner_Name</b></td>
+                <td>@item.City</td>
+                <td>@item.Zip_Code</td>
+                <td>@item.Address</td>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>@item.Web_Site</td>
+                <td>@item.PIB</td>
+                <td>@item.Bank_Account</td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Store_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" })
+
+                    @if (item.tbl_Product != null && item.tbl_Product.Count == 0)
+                    {
+                        @Html.ActionLink(" ", "Delete", new { id = item.Store_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Salon?');" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tableProducts').DataTable({
+                'paging': true,
+                'langthChange': false
+            });
+        });
+
+
+    </script>
+
+}

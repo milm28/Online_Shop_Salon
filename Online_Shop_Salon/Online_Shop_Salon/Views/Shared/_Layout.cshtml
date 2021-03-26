@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Online Shop</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+<body style="padding-top:0;">
+    @if (TempData["Message"] != null)
+    {
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="success">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong> @TempData["Message"]</strong>
+                </div>
+            </div>
+        </div>
+    }
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <div class="container">
+            <a href="/">
+                <img src="~/Content/img/logo/logo-namestaj.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown" style="padding-right:40px;padding-left:40px;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Proizvodi
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach (var category in ViewBag.categories)
+                            {
+
+                                <h6 class="dropdown-header">@category.Category_Name</h6>
+
+                                foreach (var subCategory in category.tbl_Category1)
+                                {
+                                    <a class="dropdown-item" href="/Products/ProductDetails/@subCategory.Category_Id">@subCategory.Category_Name</a>
+                                }
+                                <div class="dropdown-divider"></div>
+                            }
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <form action="/Products/Search/" novalidate="novalidate" class="form-inline my-2 my-lg-0">
+                    <input type="text" id="keyword" name="keyword" class="form-control search-slt" placeholder="Unesi Proizvod">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretrazi</button>
+                </form>
+
+@using Online_Shop_Salon.Models;
+                @using Online_Shop_Salon.Models.DTO;
+                <ul class="navbar-nav ml-auto">
+                    @Html.Partial("_ShoppingCart")
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" style="color:orange;" aria-haspopup="true" aria-expanded="false">
+                                <i style="color:orange" class="fa fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333">
+                                <a class="dropdown-item waves-effect waves-light" href="@Url.Action("Logout", "Login")">Logout</a>
+                                <a class="dropdown-item" href="#!">Another action</a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Login")">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Register", "Login")">Register</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content" style="padding-top:50px;">
+        @RenderBody()
+        <hr />
+
+    </div>
+    <section id="info-items">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img style="height: 60px;width: 60px;" src="~/Content/img/info/info-namestaj-150x150.jpg" />
+                    <h3 style="text-align: center;">Nameštaj po Meri</h3>
+                    <p style="text-align: center;">Dozvolite našem timu da Vam pomogne u planiranju i izradi nameštaja po Vašoj želji.</p>
+                </div>
+                <div class="col-md-3">
+                    <img style="height: 60px;width: 60px;" src="~/Content/img/info/isporuka-namestaj-150x150.jpg" />
+                    <h3 style="text-align: center;">Isporuka Nameštaja</h3>
+                    <p style="text-align: center;">Naši saloni vrše isporuku nameštaja na kućnu adresu. Saznajte više informacija.</p>
+                </div>
+                <div class="col-md-3">
+                    <img style="height: 60px;width: 60px;" src="~/Content/img/info/montaza-namestaj-150x150.jpg" />
+                    <h3 style="text-align: center;">Nameštaj po Meri</h3>
+                    <p style="text-align: center;">Naši saloni pružaju uslugu montaže nameštaja. Saznajte više informacija.</p>
+                </div>
+                <div class="col-md-3">
+                    <img style="height: 60px;width: 60px;" src="~/Content/img/info/uslovi-placanja-namestaj-150x150.jpg" />
+                    <h3 style="text-align: center;">Plaćanje</h3>
+                    <p style="text-align: center;">Nameštaj možete naručiti pute našeg online shop-a.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Footer section-->
+    <section id="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <footer class="site-footer col-md-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <h6>EShop</h6>
+                                <p class="text-justify">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </p>
+                            </div>
+
+                            <div class="col-xs-6 col-md-3">
+                                <h6>Kategorije</h6>
+                                <ul class="footer-links">
+                                    <li><a href="">Kategorije</a></li>
+                                    <li><a href="">Akcije</a></li>
+                                    <li><a href="">Proizvodi</a></li>
+
+                                </ul>
+                            </div>
+
+                            <div class="col-xs-6 col-md-3">
+                                <h6>Nešto o Name</h6>
+                                <ul class="footer-links">
+                                    <li><a href="">O Name</a></li>
+                                    <li><a href="">Servis</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                                <p class="copyright-text">
+                                    Copyright &copy; @DateTime.Now.Year  All Rights Reserved by
+                                    <a href="#">Milm</a>.
+                                </p>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <ul class="social-icons">
+                                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </section>
+    <!--END Footer section-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

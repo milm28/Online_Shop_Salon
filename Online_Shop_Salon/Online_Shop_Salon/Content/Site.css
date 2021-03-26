@@ -1,0 +1,397 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/*Index page Categorz*/
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap');
+
+
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 3px solid #000
+}
+
+.nav-tabs > li > a {
+    text-transform: uppercase;
+    color: #000;
+    font-weight: 500
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    border-bottom: 3px solid #000
+}
+
+
+
+.navbar-brand {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: 'Allerta Stencil', sans-serif;
+    font-weight: 500
+}
+
+.nav-tabs {
+    border-bottom: none
+}
+
+.card {
+    border: none
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 10px
+}
+
+.card-text {
+    font-size: 13px
+}
+
+.guarantee {
+    color: #05882c;
+    margin-left: 4px;
+    font-weight: 700
+}
+
+hr {
+    margin: 0.2rem 0;
+    color: #bfbebe
+}
+
+.buttons button {
+    text-transform: uppercase;
+    font-size: 12px;
+    border-radius: 2px
+}
+
+/*end category*/
+
+.container {
+    max-width: 1320px;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/****Item icons******/
+
+#info-items * img {
+    position: relative;
+    left: 39%;
+}
+
+#info-items {
+    padding-top: 90px;
+    padding-bottom: 110px;
+}
+
+
+
+/*Footer css*/
+.site-footer {
+    background-color: #26272b;
+    padding: 45px 0 20px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #737373;
+}
+
+    .site-footer hr {
+        border-top-color: #bbb;
+        opacity: 0.5
+    }
+
+        .site-footer hr.small {
+            margin: 20px 0
+        }
+
+    .site-footer h6 {
+        color: #fff;
+        font-size: 16px;
+        text-transform: uppercase;
+        margin-top: 5px;
+        letter-spacing: 2px
+    }
+
+    .site-footer a {
+        color: #737373;
+    }
+
+        .site-footer a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+
+.footer-links {
+    padding-left: 0;
+    list-style: none
+}
+
+    .footer-links li {
+        display: block
+    }
+
+    .footer-links a {
+        color: #737373
+    }
+
+        .footer-links a:active, .footer-links a:focus, .footer-links a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+
+    .footer-links.inline li {
+        display: inline-block
+    }
+
+.site-footer .social-icons {
+    text-align: right
+}
+
+    .site-footer .social-icons a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        margin-left: 6px;
+        margin-right: 0;
+        border-radius: 100%;
+        background-color: #33353d
+    }
+
+.copyright-text {
+    margin: 0
+}
+
+@media (max-width:991px) {
+    .site-footer [class^=col-] {
+        margin-bottom: 30px
+    }
+}
+
+
+@media (max-width:767px) {
+    .site-footer {
+        padding-bottom: 0
+    }
+
+        .site-footer .copyright-text, .site-footer .social-icons {
+            text-align: center
+        }
+}
+
+.social-icons {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none
+}
+
+    .social-icons li {
+        display: inline-block;
+        margin-bottom: 4px
+    }
+
+        .social-icons li.title {
+            margin-right: 15px;
+            text-transform: uppercase;
+            color: #96a2b2;
+            font-weight: 700;
+            font-size: 13px
+        }
+
+    .social-icons a {
+        background-color: #eceeef;
+        color: #818a91;
+        font-size: 16px;
+        display: inline-block;
+        line-height: 44px;
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        margin-right: 8px;
+        border-radius: 100%;
+        -webkit-transition: all .2s linear;
+        -o-transition: all .2s linear;
+        transition: all .2s linear
+    }
+
+        .social-icons a:active, .social-icons a:focus, .social-icons a:hover {
+            color: #fff;
+            background-color: #29aafe
+        }
+
+    .social-icons.size-sm a {
+        line-height: 34px;
+        height: 34px;
+        width: 34px;
+        font-size: 14px
+    }
+
+    .social-icons a.facebook:hover {
+        background-color: #3b5998
+    }
+
+    .social-icons a.twitter:hover {
+        background-color: #00aced
+    }
+
+    .social-icons a.linkedin:hover {
+        background-color: #007bb6
+    }
+
+    .social-icons a.dribbble:hover {
+        background-color: #ea4c89
+    }
+
+@media (max-width:767px) {
+    .social-icons li.title {
+        display: block;
+        margin-right: 0;
+        font-weight: 600
+    }
+}
+/** details page **/
+.image-group > img {
+    padding: 15px;
+    border: 2px solid orange;
+    margin-bottom: 12px;
+    box-shadow: 0px 1px 5px;
+    width: 160px;
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
+#product-details-section {
+    padding-top: 140px;
+    padding-bottom: 110px;
+}
+
+/*Message alerts*/
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+
+.success {
+    padding: 20px;
+    background-color: forestgreen;
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+ .closebtn:hover {
+    color: black;
+   }
+
+/*end alerts*/
+/*Icon Shop card navbar*/
+.badge-info {
+    position: relative;
+    bottom: 10px;
+    right: 8px;
+    background-color:orange;
+}
+/*End icon style*/
+
+/*Shoping cart Page*/
+.quantity {
+    float: left;
+    margin-right: 15px;
+    background-color: #eee;
+    position: relative;
+    width: 80px;
+    overflow: hidden
+}
+
+    .quantity input {
+        margin: 0;
+        text-align: center;
+        width: 15px;
+        height: 15px;
+        padding: 0;
+        float: right;
+        color: #000;
+        font-size: 20px;
+        border: 0;
+        outline: 0;
+        background-color: #F6F6F6
+    }
+
+        .quantity input.qty {
+            position: relative;
+            border: 0;
+            width: 100%;
+            height: 40px;
+            padding: 10px 25px 10px 10px;
+            text-align: center;
+            font-weight: 400;
+            font-size: 15px;
+            border-radius: 0;
+            background-clip: padding-box
+        }
+
+    .quantity .minus, .quantity .plus {
+        line-height: 0;
+        background-clip: padding-box;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-background-size: 6px 30px;
+        -moz-background-size: 6px 30px;
+        color: #bbb;
+        font-size: 20px;
+        position: absolute;
+        height: 50%;
+        border: 0;
+        right: 0;
+        padding: 0;
+        width: 25px;
+        z-index: 3
+    }
+
+        .quantity .minus:hover, .quantity .plus:hover {
+            background-color: #dad8da
+        }
+
+    .quantity .minus {
+        bottom: 0
+    }
+
+.shopping-cart {
+    margin-top: 20px;
+}
+/*End cart page*/

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d4e146fe69284b3eb8474e6693794734" Name="Diagram1">
+        <EntityTypeShape EntityType="Online_shopModel.SlideShow" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Account" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Category" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Invoice" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Invoice_Detail" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Photo" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Product" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Role" Width="1.5" PointX="1.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.tbl_Store" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Account_tbl_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Invoice_tbl_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Category_tbl_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Product_tbl_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Invoice_Detail_tbl_Invoice_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Invoice_Detail_tbl_product_id" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Photo_tbl_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Product_tbl_Store" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Online_shopModel.Login" Width="1.5" PointX="7.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

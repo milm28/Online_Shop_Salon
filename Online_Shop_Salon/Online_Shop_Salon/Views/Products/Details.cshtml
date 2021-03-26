@@ -1,0 +1,132 @@
+﻿@model Online_Shop_Salon.Models.tbl_Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<section id="product-details-section">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-2 image-group d-none d-sm-none d-md-block">
+                <img class="rounded float-start" style="padding: 15px;width: 160px" src="~/Content/img/proizvodi/@ViewBag.MainImage" onclick="openModal();currentSlide(1)" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                <img class="rounded mx-auto d-block" style="padding: 15px;width: 160px" src="~/Content/img/proizvodi/@ViewBag.MainImage" onclick="openModal();currentSlide(2)" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                <img class="rounded mx-auto d-block" style="padding: 15px;width: 160px" src="~/Content/img/proizvodi/@ViewBag.MainImage" onclick="openModal();currentSlide(3)" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+            </div>
+            <div class="col-lg-5 ">
+                <img class="rounded float-start" style="padding: 15px;width:100%;" src="~/Content/img/proizvodi/@ViewBag.MainImage" onclick="openModal();currentSlide(1)" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+            </div>
+            <div class="col-lg-5 ">
+                <div class="product-description">
+                    <div class="container">
+                        <div class="row"><span>@ViewBag.Product.Category_Id</span></div>
+                        <div class="row"><h1>@ViewBag.Product.Product_Name</h1></div>
+
+                        <div class="row">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at.
+                                Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <span>Cena:</span>&nbsp;&nbsp;
+                            <h3>@ViewBag.Product.Price_Per</h3>
+                        </div>
+                        <form action="" method="" class="">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-4">
+                                    <label for="quantity_product">Količina</label>
+                                    <input type="number" class="form-control" value="1">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 25px;">
+                                <div class="col-lg-10">
+                                    @Html.ActionLink("Korpa", "../cart/Buy", new { id = ViewBag.Product.Product_Id }, new { @class = "btn btn-primary mb-3" })
+                                    @Html.ActionLink("Završi Kupovinu", "../cartShop/AddToCart", new { id=ViewBag.Product.Product_Id}, new { @class = "btn btn-success mb-3" })
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--Product image slider zoom-->
+<div id="myModal" class="modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content" onclick="closeModal()">
+
+        <div class="mySlides">
+
+            <img src="~/Content/img/proizvodi/@ViewBag.MainImage" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+
+            <img src="~/Content/img/proizvodi/@ViewBag.MainImage" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+
+            <img src="~/Content/img/proizvodi/@ViewBag.MainImage" style="width:100%">
+        </div>
+
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+@section scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+    </script>
+
+}
