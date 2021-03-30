@@ -11,7 +11,8 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_Account
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,14 +22,38 @@ namespace Online_Shop_Salon.Models
         }
     
         public int Account_Id { get; set; }
+
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Korisnicko Ime")]
+        [StringLength(50, MinimumLength = 3)]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Password")]
+        
+        [StringLength(50, MinimumLength = 3)]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Ime")]
+        [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Prezime")]
+        [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
         public int Role_Id { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Grad")]
+        [StringLength(50, MinimumLength = 2)]
         public string City { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Adresa i broj")]
+        [StringLength(50, MinimumLength = 3)]
         public string Address { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
+        public bool Status { get; set; }
     
         public virtual tbl_Role tbl_Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

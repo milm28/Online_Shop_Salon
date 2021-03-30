@@ -11,14 +11,14 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class SlideShow
     {
         public int Id { get; set; }
+        [Display(Name = "Slika")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         public string Name { get; set; }
         public bool Status { get; set; }
-
-        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

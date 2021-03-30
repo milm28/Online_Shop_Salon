@@ -59,7 +59,6 @@ namespace Online_Shop_Salon.Controllers.Admin
 
         
         [HttpPost]
-       
         [ValidateAntiForgeryToken]
         public ActionResult Edit( tbl_Store tbl_Store)
         {
@@ -73,7 +72,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         }
 
 
-        #region Delete SlideShow
+        #region Delete Store
         /// <summary>
         /// Delete SlideShow Image from dataBase
         /// </summary>
@@ -83,14 +82,11 @@ namespace Online_Shop_Salon.Controllers.Admin
         [HttpGet]
         public ActionResult Delete(int? id)
         {
-            
-           
-                tbl_Store store = db.tbl_Store.Find(id);
-                db.tbl_Store.Remove(store);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
-
+             tbl_Store store = db.tbl_Store.Find(id);
+            store.Status = false;   
+             //db.tbl_Store.Remove(store);
+             db.SaveChanges();
+             return RedirectToAction("Index");
         }
         #endregion
     }

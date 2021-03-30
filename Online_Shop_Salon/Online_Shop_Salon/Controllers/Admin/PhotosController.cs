@@ -52,15 +52,26 @@ namespace Online_Shop_Salon.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create(int Product_Id, tbl_Photo photo)
         {
-            string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
-            string extension = Path.GetExtension(photo.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-            photo.Image_Name = "/ImgProizvodi/" + fileName;
-            fileName = Path.Combine(Server.MapPath("/ImgProizvodi/"), fileName);
-            photo.ImageFile.SaveAs(fileName);
-            db.tbl_Photo.Add(photo);
-            db.SaveChanges();
-            return RedirectToAction("Index", new { id = Product_Id });
+
+            if (photo.ImageFile.FileName != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
+                string extension = Path.GetExtension(photo.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                photo.Image_Name = "/ImgProizvodi/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/ImgProizvodi/"), fileName);
+                photo.ImageFile.SaveAs(fileName);
+                db.tbl_Photo.Add(photo);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { id = Product_Id });
+            }
+            else
+            {
+                TempData["Message_Photo_Error"] = "Morate Uneti Sliku!";
+                return RedirectToAction("create", new { id = Product_Id });
+            }
+
+
         }
         #endregion
 

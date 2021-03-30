@@ -42,26 +42,29 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Create(tbl_Category category)
         {
             var valNewCategory = db.tbl_Category.Where(c => c.Category_Name == category.Category_Name).FirstOrDefault();
-
-            if (valNewCategory == null)
+            if (category.Category_Name != null)
             {
-
-                if (ModelState.IsValid)
+                if (valNewCategory == null)
                 {
 
-                    category.ParentId = null;
+                    if (ModelState.IsValid)
+                    {
 
-                    db.tbl_Category.Add(category);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        category.ParentId = null;
+
+                        db.tbl_Category.Add(category);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+
                 }
-
+                else
+                {
+                    TempData["Message_Error"] = "Kategorija postoji u Bazi!";
+                    return View(category);
+                }
             }
-            else
-            {
-                TempData["Message"] = "Kategorija postoji u Bazi!";
-                return View(category);
-            }
+            TempData["Message_Error"] = "Morate uneti sve podatke!";
             return View(category);
         }
         #endregion
@@ -103,6 +106,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             var currentCategory = db.tbl_Category.Find(id);
             currentCategory.Category_Name = category.Category_Name;
+            currentCategory.Category_Image = category.Category_Image;
             currentCategory.Status = category.Status;
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -67,16 +67,7 @@
             }
         }
     </tbody>
-    <tfoot>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Perent</th>
-            <th>Status</th>
-
-
-        </tr>
-    </tfoot>
+    
 </table>
 
 
@@ -87,31 +78,11 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function () {
-            $('#tableCategories tfoot th').each(function () {
-                var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            });
-
-
             // DataTable
             var table = $('#tableCategories').DataTable({
                 'paging': true,
                 'langthChange': false,
-                'ordering': false,
-                initComplete: function () {
-                    // Apply the search
-                    this.api().columns().every(function () {
-                        var that = this;
-
-                        $('input', this.footer()).on('keyup change clear', function () {
-                            if (that.search() !== this.value) {
-                                that
-                                    .search(this.value)
-                                    .draw();
-                            }
-                        });
-                    });
-                }
+                'ordering': false
             });
         });
 

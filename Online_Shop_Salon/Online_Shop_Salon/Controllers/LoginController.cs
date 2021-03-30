@@ -5,64 +5,86 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Online_Shop_Salon.Models;
+using System.Security.Cryptography;
 
 namespace Online_Shop_Salon.Controllers
 {
     public class LoginController : Controller
     {
         private Online_shopEntities db = new Online_shopEntities();
-        // GET: Login
+
+        #region Register Page
         public ActionResult Register()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }
+        #endregion
+
+        #region Register new user(only user)
         [HttpPost]
         public ActionResult Register(tbl_Account user)
         {
-           
+            var check = db.tbl_Account.FirstOrDefault(s => s.Email == user.Email);
+            if (check == null)
+            {
                 user.Role_Id = 2;
+                user.Status = true;
                 db.tbl_Account.Add(user);
                 db.SaveChanges();
                 ModelState.Clear();
 
-            TempData["Message"] = "Uspesno ste se registrovali!";
-            return RedirectToAction("Index", "Home");
+                TempData["Message_Register_Success"] = "Uspesno ste se registrovali!";
+                return RedirectToAction("Login", "Login");
+            }
+            TempData["Message_Register_Error"] = "Email postoji u bazi!";
+            return RedirectToAction("Register", "login");
         }
+        #endregion
 
-        #region Login Get and Post
+        #region Login Page
         public ActionResult Login()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }
+        #endregion
+
+        #region Login User/Admin multiple Login
         [HttpPost]
         public ActionResult Login(Login login)
         {
-            using (Online_shopEntities db = new Online_shopEntities())
+  
+            var user = db.tbl_Account.Where(a => a.Email == login.Email && a.Password == login.Password && a.Status!=false).FirstOrDefault();
+
+            if (user != null)
             {
-                var user = db.tbl_Account.Where(a => a.Email == login.Email && a.Password == login.Password).FirstOrDefault();
-                if (user != null)
+                Session["user_id"] = user.Account_Id;
+                Session["user_name"] = user.UserName;
+               var Ticket = new FormsAuthenticationTicket(login.Email, true, 3000);
+               string Encrypt = FormsAuthentication.Encrypt(Ticket);
+               var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, Encrypt);
+               cookie.Expires = DateTime.Now.AddHours(3000);
+               cookie.HttpOnly = true;
+               Response.Cookies.Add(cookie);
+             
+
+
+
+                if (user.Role_Id == 1)
                 {
-                    var Ticket = new FormsAuthenticationTicket(login.Email, true, 3000);
-                    string Encrypt = FormsAuthentication.Encrypt(Ticket);
-                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, Encrypt);
-                    cookie.Expires = DateTime.Now.AddHours(3000);
-                    cookie.HttpOnly = true;
-                    Response.Cookies.Add(cookie);
-                    if (user.Role_Id == 1)
-                    {
-                        return RedirectToAction("Index", "Dashboard");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                return RedirectToAction("Index", "Home");
+                            //return Redirect(Request.UrlReferrer.ToString());
                 }
             }
-            return View();
+            TempData["Message_Login_Error"] = "Kupac ne postoji u bazi!";
+            return RedirectToAction("Login", "Login");
         }
         #endregion
 
@@ -73,5 +95,7 @@ namespace Online_Shop_Salon.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
+        
     }
+
 }

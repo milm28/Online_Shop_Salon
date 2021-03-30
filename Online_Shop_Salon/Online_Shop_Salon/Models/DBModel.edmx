@@ -33,6 +33,7 @@
           <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Category">
           <Key>
@@ -84,7 +85,7 @@
           <Property Name="Product_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Made_In" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Made_Year" Type="nvarchar" MaxLength="4" Nullable="false" />
-          <Property Name="Price_Per" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Price_Per" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Quantity_Stock" Type="int" Nullable="false" />
           <Property Name="StoreId" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
@@ -113,6 +114,7 @@
           <Property Name="Web_Site" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="PIB" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Bank_Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_tbl_Account_tbl_Role">
           <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="1" />
@@ -186,30 +188,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_Product_tbl_Category">
-          <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1" />
-          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Category">
-              <PropertyRef Name="Category_Id" />
-            </Principal>
-            <Dependent Role="tbl_Product">
-              <PropertyRef Name="Category_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Product_tbl_Store">
-          <End Role="tbl_Store" Type="Self.tbl_Store" Multiplicity="1" />
-          <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Store">
-              <PropertyRef Name="Store_Id" />
-            </Principal>
-            <Dependent Role="tbl_Product">
-              <PropertyRef Name="StoreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Online_shopModelStoreContainer">
           <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SlideShow" EntityType="Self.SlideShow" Schema="dbo" store:Type="Tables" />
@@ -245,14 +223,6 @@
             <End Role="tbl_Product" EntitySet="tbl_Product" />
             <End Role="tbl_Photo" EntitySet="tbl_Photo" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Product_tbl_Category" Association="Self.FK_tbl_Product_tbl_Category">
-            <End Role="tbl_Category" EntitySet="tbl_Category" />
-            <End Role="tbl_Product" EntitySet="tbl_Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Product_tbl_Store" Association="Self.FK_tbl_Product_tbl_Store">
-            <End Role="tbl_Store" EntitySet="tbl_Store" />
-            <End Role="tbl_Product" EntitySet="tbl_Product" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -281,6 +251,7 @@
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="tbl_Role" Relationship="Self.FK_tbl_Account_tbl_Role" FromRole="tbl_Account" ToRole="tbl_Role" />
           <NavigationProperty Name="tbl_Invoice" Relationship="Self.FK_tbl_Invoice_tbl_Account" FromRole="tbl_Account" ToRole="tbl_Invoice" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Category">
           <Key>
@@ -339,8 +310,8 @@
           <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Product_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Made_In" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Made_Year" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Price_Per" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Made_Year" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+          <Property Name="Price_Per" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Quantity_Stock" Type="Int32" Nullable="false" />
           <Property Name="StoreId" Type="Int32" Nullable="false" />
           <Property Name="Category_Id" Type="Int32" Nullable="false" />
@@ -375,6 +346,7 @@
           <Property Name="PIB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Bank_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Product_tbl_Store" FromRole="tbl_Store" ToRole="tbl_Product" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_tbl_Account_tbl_Role">
           <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="1" />
@@ -541,6 +513,7 @@
           <EntitySetMapping Name="tbl_Account">
             <EntityTypeMapping TypeName="Online_shopModel.tbl_Account">
               <MappingFragment StoreEntitySet="tbl_Account">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Account_Id" ColumnName="Account_Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -625,6 +598,7 @@
           <EntitySetMapping Name="tbl_Store">
             <EntityTypeMapping TypeName="Online_shopModel.tbl_Store">
               <MappingFragment StoreEntitySet="tbl_Store">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Store_Id" ColumnName="Store_Id" />
                 <ScalarProperty Name="Store_Name" ColumnName="Store_Name" />
                 <ScalarProperty Name="Owner_Name" ColumnName="Owner_Name" />

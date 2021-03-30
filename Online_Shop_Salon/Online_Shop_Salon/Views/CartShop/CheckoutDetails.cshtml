@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "CheckoutDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Online_Shop_Salon.Models.DTO;
+@using Online_Shop_Salon.Models
+
+
+
+<div class="container">
+    @if (Session["cart"] == null)
+    {
+        <h2>Korpa Vam je prazna!</h2>
+    }
+    else
+    {
+
+        <h2>Checkout</h2>
+
+        <form method="post" action="/CartShop/CheckOut">
+
+            <input type="hidden" value="@Session["user_id"]" name="userId" />
+
+
+            <div class="card shopping-cart">
+                <div class="card-header bg-dark text-light">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Shipping cart
+                    <a href="" class="btn btn-outline-info btn-sm pull-right">Continiu shopping</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="card-body">
+                    @foreach (Item item in (List<Item>)Session["cart"])
+                    {
+                        tbl_Product product = (tbl_Product)item.Product;
+                        var photo = product.tbl_Photo.SingleOrDefault(p => p.Main_Image == true);
+                        var photoName = photo == null ? "no-img.jpg" : photo.Image_Name;
+                        <!-- PRODUCT -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-2 text-center">
+
+                                <img class="img-responsive" src="../@photoName" alt="prewiew" width="120" height="80">
+                            </div>
+                            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                                <h4 class="product-name"><strong>@product.Product_Name</strong></h4>
+                                <h4><small>Product description</small></h4>
+                            </div>
+                            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                                <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                    <h6><strong>@product.Price_Per<span class="text-muted">x</span></strong></h6>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4">
+                                    <div class="quantity">
+                                        @Html.ActionLink(" ", "../cartShop/AddToCart", new { id = item.Product.Product_Id }, new { @class = "fa fa-plus" })
+                                        <input type="number" step="1" max="20" min="1" value="@item.Quantity" title="Qty" class="qty" size="4">
+                                        @Html.ActionLink(" ", "../cartShop/DeleteQty", new { id = item.Product.Product_Id }, new { @class = "fa fa-minus" })
+                                    </div>
+                                </div>
+                                <div class="col-2 col-sm-2 col-md-2 text-right">
+                                   
+                                        @Html.ActionLink(" ", "../CartShop/RemoveFromCart", new { id = item.Product.Product_Id },new { @class= "btn btn-outline-danger btn-xs fa fa-trash" })
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                    }
+
+                    <div class="pull-right">
+                        <span>Isporuka Besplatna</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                    <div class="pull-right" style="margin: 10px">
+                        
+                        
+                           
+                            <button class="btn btn-success pull-right" type="submit">Naruči</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    }
+
+</div>
+
+
+

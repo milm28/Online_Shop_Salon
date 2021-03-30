@@ -10,6 +10,12 @@ namespace Online_Shop_Salon.Controllers
     public class HomeController : Controller
     {
         private Online_shopEntities db = new Online_shopEntities();
+
+        #region Home page/index
+        /// <summary>
+        /// for slider and dropdown category
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
@@ -17,6 +23,7 @@ namespace Online_Shop_Salon.Controllers
             ViewBag.slideShows = slideShows;
             return View();
         }
-        
+        #endregion
+
     }
 }

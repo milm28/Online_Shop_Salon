@@ -57,7 +57,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             slideShow.ImageFile.SaveAs(fileName);
             db.SlideShows.Add(slideShow);
             db.SaveChanges();
-            return View();
+            return RedirectToAction("index","slideShows");
         }
         #endregion
 

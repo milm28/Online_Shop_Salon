@@ -312,16 +312,12 @@
     <Compile Include="Controllers\Admin\ProductsController.cs" />
     <Compile Include="Controllers\Admin\SlideShowsController.cs" />
     <Compile Include="Controllers\Admin\StoresController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CartShopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ShopCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\SessionHelper.cs" />
-    <Compile Include="Helpers\TempDataHelper.cs" />
     <Compile Include="Models\DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -338,6 +334,8 @@
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\DTO\Item.cs" />
+    <Compile Include="Models\DTO\Photo.cs" />
+    <Compile Include="Models\DTO\SlideShow.cs" />
     <Compile Include="Models\Login.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -379,15 +377,29 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\img\info\info-namestaj-150x150.jpg" />
     <Content Include="Content\img\info\isporuka-namestaj-150x150.jpg" />
     <Content Include="Content\img\info\montaza-namestaj-150x150.jpg" />
     <Content Include="Content\img\info\uslovi-placanja-namestaj-150x150.jpg" />
     <Content Include="Content\img\kategorije\dnev-sobe.jpg" />
+    <Content Include="Content\img\kategorije\dvosed-sub.jpg" />
+    <Content Include="Content\img\kategorije\kategorija-spavaca.jpg" />
     <Content Include="Content\img\kategorije\Kuhinja.jpg" />
+    <Content Include="Content\img\kategorije\moderna-kuhinja1.jpg" />
+    <Content Include="Content\img\kategorije\norma-kuhinja.jpg" />
+    <Content Include="Content\img\kategorije\pre-sub-komplet.jpg" />
+    <Content Include="Content\img\kategorije\Predsoblje-kategorija.jpg" />
     <Content Include="Content\img\kategorije\Predsoblje2.jpg" />
+    <Content Include="Content\img\kategorije\spavaca-komplet-sub.png" />
     <Content Include="Content\img\kategorije\Spavaca-soba2.jpg" />
     <Content Include="Content\img\kategorije\Trpezarija2.jpg" />
+    <Content Include="Content\img\kategorije\ugaona-sub.jpg" />
     <Content Include="Content\img\logo\logo-eshop.png" />
     <Content Include="Content\img\logo\logo-namestaj.png" />
     <Content Include="Content\img\logo\logo-online-shop.png" />
@@ -397,11 +409,66 @@
     <Content Include="Content\img\proizvodi\bolonja.jpg" />
     <Content Include="Content\img\proizvodi\casa.jpg" />
     <Content Include="Content\img\proizvodi\dvosed-main.jpg" />
+    <Content Include="Content\img\proizvodi\kuhinja-1.jpg" />
+    <Content Include="Content\img\proizvodi\kuhinja-2.jpg" />
+    <Content Include="Content\img\proizvodi\kuhinja-3.jpg" />
+    <Content Include="Content\img\proizvodi\kuhinja-4.jpg" />
     <Content Include="Content\img\proizvodi\Leon.jpg" />
     <Content Include="Content\img\proizvodi\Marano.jpg" />
+    <Content Include="Content\img\proizvodi\predsoblje-1.jpg" />
+    <Content Include="Content\img\proizvodi\predsoblje-2.jpg" />
+    <Content Include="Content\img\proizvodi\predsoblje-3.jpg" />
+    <Content Include="Content\img\proizvodi\spavaca-1.jpg" />
+    <Content Include="Content\img\proizvodi\spavaca-2.jpg" />
+    <Content Include="Content\img\proizvodi\spavaca-3.jpg" />
+    <Content Include="Content\img\proizvodi\spavaca-4.jpg" />
     <Content Include="Content\img\proizvodi\trosed-1.jpg" />
     <Content Include="Content\img\proizvodi\trosed-2.jpg" />
     <Content Include="Content\img\proizvodi\trosed-3.jpg" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -460,6 +527,9 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -517,21 +587,19 @@
     <Content Include="Views\Stores\Index.cshtml" />
     <Content Include="Views\Stores\Create.cshtml" />
     <Content Include="Views\Stores\Edit.cshtml" />
-    <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\Create.cshtml" />
     <Content Include="Views\Accounts\Edit.cshtml" />
-    <Content Include="Views\Accounts\Details.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_ShoppingCart.cshtml" />
+    <Content Include="Views\CartShop\CheckoutDetails.cshtml" />
+    <Content Include="Views\CartShop\Thanks.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\proizvodi\dvosedi\" />
     <Folder Include="Content\img\proizvodi\trepezarija\" />
     <Folder Include="Content\img\slider\" />
-    <Folder Include="Views\CartShop\" />
-    <Folder Include="Views\CartTopView\" />
-    <Folder Include="Views\DemoCart\" />
     <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <ItemGroup>

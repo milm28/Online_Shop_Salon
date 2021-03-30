@@ -22,20 +22,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             return View(tbl_Account.ToList());
         }
 
-        [HttpGet]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tbl_Account tbl_Account = db.tbl_Account.Find(id);
-            if (tbl_Account == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tbl_Account);
-        }
+       
 
         
         public ActionResult Create()
@@ -72,6 +59,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 return HttpNotFound();
             }
+            ViewBag.password=tbl_Account.Password;
             ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name", tbl_Account.Role_Id);
             return View(tbl_Account);
         }
@@ -90,6 +78,8 @@ namespace Online_Shop_Salon.Controllers.Admin
             ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name", tbl_Account.Role_Id);
             return View(tbl_Account);
         }
+
+       
 
     }
 }

@@ -25,10 +25,19 @@ namespace Online_Shop_Salon.Controllers.Admin
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            var category_id = db.tbl_Category.Where(x => x.ParentId != null);
-            var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name");
-            ViewBag.Category_Id = Category_Id;
-            ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name");
+            var check = db.tbl_Store.Where(c => c.Status == true).FirstOrDefault();
+            if (check != null)
+            {
+                var category_id = db.tbl_Category.Where(x => x.ParentId != null);
+                var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name");
+                ViewBag.Category_Id = Category_Id;
+                ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name");
+            }
+            else
+            {
+                TempData["Message_Product_Error"] = "Trenutno nemate ni jednu prodavnicu!";
+                return RedirectToAction("index","Products");
+            }
             return View();
         }
 
@@ -46,7 +55,7 @@ namespace Online_Shop_Salon.Controllers.Admin
                 var defaoultPhoto = new tbl_Photo
                 {
                     Image_Name = "/ImgProizvodi/no-img.jpg",
-                    Status = true,
+                    Status = false,
                     Product_Id = tbl_Product.Product_Id,
                     Main_Image = true
                 };
@@ -86,6 +95,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                tbl_Product.Status = tbl_Product.Status;
                 db.Entry(tbl_Product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

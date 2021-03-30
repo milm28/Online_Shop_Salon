@@ -10,5 +10,7 @@ namespace Online_Shop_Salon.Models.DTO
     {
         public tbl_Product Product { get; set; }
         public int Quantity { get; set; }
+     
+       
     }
 }

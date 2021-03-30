@@ -11,7 +11,8 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +23,41 @@ namespace Online_Shop_Salon.Models
         }
     
         public int Product_Id { get; set; }
+        [Display(Name = "Ime Proizvda")]
+        [Required(ErrorMessage ="Polje je obavezno")]
+        [StringLength(150)]
+        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
         public string Product_Name { get; set; }
+
+        [Display(Name = "Zemlja Porekla")]
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [StringLength(50)]
         public string Made_In { get; set; }
+
+        [Display(Name = "Godina Proizvodnje")]
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [StringLength(4,ErrorMessage ="Unosimo samo godinu yyyy!")]
         public string Made_Year { get; set; }
+
+        [Display(Name = "Cena po Komadu")]
+        [Required(ErrorMessage = "Polje je obavezno")]
+        
+        [Range(0.0, 100000,ErrorMessage ="Cena ne moze da bude preko 100000.00!")]
         public decimal Price_Per { get; set; }
+
+        [Display(Name = "Kolicina u salonu")]
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Range(0, 1000, ErrorMessage = "Maksimalna Kolicina u Salonu je 1000!")]
         public int Quantity_Stock { get; set; }
+
+        [Display(Name = "Izaberi Salon")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         public int StoreId { get; set; }
+
+        [Display(Name = "Izaberi Kategoriju")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         public int Category_Id { get; set; }
+        [Display(Name = "Status")]
         public Nullable<bool> Status { get; set; }
     
         public virtual tbl_Category tbl_Category { get; set; }

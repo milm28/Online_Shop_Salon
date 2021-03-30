@@ -11,17 +11,19 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class tbl_Photo
     {
         public int Image_Id { get; set; }
+
+        [Display(Name = "Slika")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         public string Image_Name { get; set; }
         public bool Status { get; set; }
         public int Product_Id { get; set; }
         public bool Main_Image { get; set; }
     
         public virtual tbl_Product tbl_Product { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }
     }
 }
