@@ -370,7 +370,7 @@ GO
 -- Script has ended
 -- --------------------------------------------------
 
-insert itno base data
+--insert itno base data
 
 USE [Online_shop]
 GO
