@@ -375,9 +375,7 @@ insert itno base data
 USE [Online_shop]
 GO
 
-INSERT INTO [dbo].[SlideShow]([Name],[Status])VALUES ('../ImageSlider/soba-2211122648.jpg',1)
-INSERT INTO [dbo].[SlideShow]([Name],[Status])VALUES ('../ImageSlider/soba-3211129161.jpg',1)
-INSERT INTO [dbo].[SlideShow]([Name],[Status])VALUES ('../ImageSlider/soba-4211136894.jpg',1)
+
 
 INSERT INTO [dbo].[tbl_Role]([Role_Name],[Status])VALUES('Admin',1)
 INSERT INTO [dbo].[tbl_Role]([Role_Name],[Status])VALUES('User',1)

@@ -188,7 +188,7 @@ namespace Online_Shop_Salon.Controllers
 
                         Tax = 20,
                         Price_Per = item.Product.Price_Per,
-                        Total_Price_Tax = (item.Product.Price_Per * 80/100)*item.Quantity
+                        Total_Price_Tax = item.Product.Price_Per * item.Quantity
 
                     };
                     db.tbl_Invoice_Detail.Add(invoiceDetails);

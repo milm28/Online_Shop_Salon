@@ -10,12 +10,19 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            @foreach (var slider in ViewBag.slideShows)
-            {
-                <div class="carousel-item ">
-                    <img class="d-block w-100 height-img-lg" src="~/ImageSlider/@slider.Name" alt="First slide">
-                </div>
-            }
+
+
+            <!--Slider use script for first ACTIVE class"active"-->
+            <div class="carousel-item ">
+                <img class="d-block w-100 height-img-lg" src="~/ImageSlider/soba-2211122648.jpg" >
+            </div>
+            <div class="carousel-item ">
+                <img class="d-block w-100 height-img-lg" src="~/ImageSlider/soba-3211129161.jpg" >
+            </div>
+            <div class="carousel-item ">
+                <img class="d-block w-100 height-img-lg" src="~/ImageSlider/soba-4211136894.jpg">
+            </div>
+
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

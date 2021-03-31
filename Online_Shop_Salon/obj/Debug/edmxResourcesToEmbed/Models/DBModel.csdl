@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Online_shopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="SlideShow">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Account">
+    <Key>
+      <PropertyRef Name="Account_Id" />
+    </Key>
+    <Property Name="Account_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Role_Id" Type="Int32" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tbl_Role" Relationship="Self.FK_tbl_Account_tbl_Role" FromRole="tbl_Account" ToRole="tbl_Role" />
+    <NavigationProperty Name="tbl_Invoice" Relationship="Self.FK_tbl_Invoice_tbl_Account" FromRole="tbl_Account" ToRole="tbl_Invoice" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_Category">
+    <Key>
+      <PropertyRef Name="Category_Id" />
+    </Key>
+    <Property Name="Category_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Category_Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Category1" Relationship="Self.FK_tbl_Category_tbl_Category" FromRole="tbl_Category" ToRole="tbl_Category1" />
+    <NavigationProperty Name="tbl_Category2" Relationship="Self.FK_tbl_Category_tbl_Category" FromRole="tbl_Category1" ToRole="tbl_Category" />
+    <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Product_tbl_Category" FromRole="tbl_Category" ToRole="tbl_Product" />
+  </EntityType>
+  <EntityType Name="tbl_Invoice">
+    <Key>
+      <PropertyRef Name="Invoice_Id" />
+    </Key>
+    <Property Name="Invoice_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Account_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbl_Account" Relationship="Self.FK_tbl_Invoice_tbl_Account" FromRole="tbl_Invoice" ToRole="tbl_Account" />
+    <NavigationProperty Name="tbl_Invoice_Detail" Relationship="Self.FK_tbl_Invoice_Detail_tbl_Invoice_Id" FromRole="tbl_Invoice" ToRole="tbl_Invoice_Detail" />
+  </EntityType>
+  <EntityType Name="tbl_Invoice_Detail">
+    <Key>
+      <PropertyRef Name="Invoice_Id" />
+      <PropertyRef Name="Product_Id" />
+    </Key>
+    <Property Name="Invoice_Id" Type="Int32" Nullable="false" />
+    <Property Name="Product_Id" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Tax" Type="Int32" Nullable="false" />
+    <Property Name="Total_Price_Tax" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Price_Per" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="tbl_Invoice" Relationship="Self.FK_tbl_Invoice_Detail_tbl_Invoice_Id" FromRole="tbl_Invoice_Detail" ToRole="tbl_Invoice" />
+    <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Invoice_Detail_tbl_product_id" FromRole="tbl_Invoice_Detail" ToRole="tbl_Product" />
+  </EntityType>
+  <EntityType Name="tbl_Photo">
+    <Key>
+      <PropertyRef Name="Image_Id" />
+    </Key>
+    <Property Name="Image_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Image_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Product_Id" Type="Int32" Nullable="false" />
+    <Property Name="Main_Image" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Photo_tbl_Product" FromRole="tbl_Photo" ToRole="tbl_Product" />
+  </EntityType>
+  <EntityType Name="tbl_Product">
+    <Key>
+      <PropertyRef Name="Product_Id" />
+    </Key>
+    <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Made_In" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Made_Year" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="Price_Per" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="Quantity_Stock" Type="Int32" Nullable="false" />
+    <Property Name="StoreId" Type="Int32" Nullable="false" />
+    <Property Name="Category_Id" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="tbl_Category" Relationship="Self.FK_tbl_Product_tbl_Category" FromRole="tbl_Product" ToRole="tbl_Category" />
+    <NavigationProperty Name="tbl_Invoice_Detail" Relationship="Self.FK_tbl_Invoice_Detail_tbl_product_id" FromRole="tbl_Product" ToRole="tbl_Invoice_Detail" />
+    <NavigationProperty Name="tbl_Photo" Relationship="Self.FK_tbl_Photo_tbl_Product" FromRole="tbl_Product" ToRole="tbl_Photo" />
+    <NavigationProperty Name="tbl_Store" Relationship="Self.FK_tbl_Product_tbl_Store" FromRole="tbl_Product" ToRole="tbl_Store" />
+  </EntityType>
+  <EntityType Name="tbl_Role">
+    <Key>
+      <PropertyRef Name="Role_Id" />
+    </Key>
+    <Property Name="Role_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+    <NavigationProperty Name="tbl_Account" Relationship="Self.FK_tbl_Account_tbl_Role" FromRole="tbl_Role" ToRole="tbl_Account" />
+  </EntityType>
+  <EntityType Name="tbl_Store">
+    <Key>
+      <PropertyRef Name="Store_Id" />
+    </Key>
+    <Property Name="Store_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Store_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Owner_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Zip_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Web_Site" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PIB" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bank_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Product_tbl_Store" FromRole="tbl_Store" ToRole="tbl_Product" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tbl_Account_tbl_Role">
+    <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="1" />
+    <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Role">
+        <PropertyRef Name="Role_Id" />
+      </Principal>
+      <Dependent Role="tbl_Account">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Invoice_tbl_Account">
+    <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
+    <End Role="tbl_Invoice" Type="Self.tbl_Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Account">
+        <PropertyRef Name="Account_Id" />
+      </Principal>
+      <Dependent Role="tbl_Invoice">
+        <PropertyRef Name="Account_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Category_tbl_Category">
+    <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="0..1" />
+    <End Role="tbl_Category1" Type="Self.tbl_Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Category">
+        <PropertyRef Name="Category_Id" />
+      </Principal>
+      <Dependent Role="tbl_Category1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Product_tbl_Category">
+    <End Role="tbl_Category" Type="Self.tbl_Category" Multiplicity="1" />
+    <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Category">
+        <PropertyRef Name="Category_Id" />
+      </Principal>
+      <Dependent Role="tbl_Product">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Invoice_Detail_tbl_Invoice_Id">
+    <End Role="tbl_Invoice" Type="Self.tbl_Invoice" Multiplicity="1" />
+    <End Role="tbl_Invoice_Detail" Type="Self.tbl_Invoice_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Invoice">
+        <PropertyRef Name="Invoice_Id" />
+      </Principal>
+      <Dependent Role="tbl_Invoice_Detail">
+        <PropertyRef Name="Invoice_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Invoice_Detail_tbl_product_id">
+    <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="1" />
+    <End Role="tbl_Invoice_Detail" Type="Self.tbl_Invoice_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Product">
+        <PropertyRef Name="Product_Id" />
+      </Principal>
+      <Dependent Role="tbl_Invoice_Detail">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Photo_tbl_Product">
+    <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="1" />
+    <End Role="tbl_Photo" Type="Self.tbl_Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Product">
+        <PropertyRef Name="Product_Id" />
+      </Principal>
+      <Dependent Role="tbl_Photo">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Product_tbl_Store">
+    <End Role="tbl_Store" Type="Self.tbl_Store" Multiplicity="1" />
+    <End Role="tbl_Product" Type="Self.tbl_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Store">
+        <PropertyRef Name="Store_Id" />
+      </Principal>
+      <Dependent Role="tbl_Product">
+        <PropertyRef Name="StoreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Online_shopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="SlideShows" EntityType="Self.SlideShow" />
+    <EntitySet Name="tbl_Account" EntityType="Self.tbl_Account" />
+    <EntitySet Name="tbl_Category" EntityType="Self.tbl_Category" />
+    <EntitySet Name="tbl_Invoice" EntityType="Self.tbl_Invoice" />
+    <EntitySet Name="tbl_Invoice_Detail" EntityType="Self.tbl_Invoice_Detail" />
+    <EntitySet Name="tbl_Photo" EntityType="Self.tbl_Photo" />
+    <EntitySet Name="tbl_Product" EntityType="Self.tbl_Product" />
+    <EntitySet Name="tbl_Role" EntityType="Self.tbl_Role" />
+    <EntitySet Name="tbl_Store" EntityType="Self.tbl_Store" />
+    <AssociationSet Name="FK_tbl_Account_tbl_Role" Association="Self.FK_tbl_Account_tbl_Role">
+      <End Role="tbl_Role" EntitySet="tbl_Role" />
+      <End Role="tbl_Account" EntitySet="tbl_Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Invoice_tbl_Account" Association="Self.FK_tbl_Invoice_tbl_Account">
+      <End Role="tbl_Account" EntitySet="tbl_Account" />
+      <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Category_tbl_Category" Association="Self.FK_tbl_Category_tbl_Category">
+      <End Role="tbl_Category" EntitySet="tbl_Category" />
+      <End Role="tbl_Category1" EntitySet="tbl_Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Product_tbl_Category" Association="Self.FK_tbl_Product_tbl_Category">
+      <End Role="tbl_Category" EntitySet="tbl_Category" />
+      <End Role="tbl_Product" EntitySet="tbl_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Invoice_Detail_tbl_Invoice_Id" Association="Self.FK_tbl_Invoice_Detail_tbl_Invoice_Id">
+      <End Role="tbl_Invoice" EntitySet="tbl_Invoice" />
+      <End Role="tbl_Invoice_Detail" EntitySet="tbl_Invoice_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Invoice_Detail_tbl_product_id" Association="Self.FK_tbl_Invoice_Detail_tbl_product_id">
+      <End Role="tbl_Product" EntitySet="tbl_Product" />
+      <End Role="tbl_Invoice_Detail" EntitySet="tbl_Invoice_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Photo_tbl_Product" Association="Self.FK_tbl_Photo_tbl_Product">
+      <End Role="tbl_Product" EntitySet="tbl_Product" />
+      <End Role="tbl_Photo" EntitySet="tbl_Photo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Product_tbl_Store" Association="Self.FK_tbl_Product_tbl_Store">
+      <End Role="tbl_Store" EntitySet="tbl_Store" />
+      <End Role="tbl_Product" EntitySet="tbl_Product" />
+    </AssociationSet>
+    <EntitySet Name="Logins" EntityType="Online_shopModel.Login" />
+  </EntityContainer>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>
