@@ -1,0 +1,77 @@
+﻿@model Online_Shop_Salon.Models.tbl_Product
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
+}
+
+<h2>Slike Proizvoda</h2>
+
+<p>
+    @Html.ActionLink(" Create New", "Create", new { id = ViewBag.Product.Product_Id }, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+    @Html.ActionLink(" Back", "../Products", null, new { @class = "btn btn-sm btn-info fa fa-step-backward fa-sm" })
+</p>
+
+
+<table id="tablePhotos" class="table table-striped table-bordered" style="width:100%;text-align:center;">
+    <tr>
+        <th>ID</th>
+        <th>Slika</th>
+        <th>Status</th>
+        <th>Glavna Slika </th>
+        <th>Tools</th>
+    </tr>
+
+    @foreach (var item in ViewBag.Photo)
+    {
+        <tr>
+            <td>@item.Image_Id</td>
+            <td><img class="zoom" style="width:50px;height:25px;" src="@item.Image_Name" /></td>
+
+            <td>
+                @if (item.Status == true)
+                {
+                    @Html.ActionLink(" ", "SetStatus", new { id = item.Image_Id }, new { @class = "form-check-input icon-on fa fa-toggle-on fa-lg" })
+                }
+                else
+                {
+
+                    @Html.ActionLink(" ", "SetStatus", new { id = item.Image_Id }, new { @class = "form-check-input icon-off fa fa-toggle-off fa-lg" })
+
+                }
+            </td>
+            <td>
+                @if (!item.Main_Image)
+                {
+                    @Html.ActionLink(" ", "SetMainImage", new { id = item.Image_Id, productId = item.Product_Id }, new { @class = "form-check-input icon-off fa fa-toggle-off  fa-lg" })
+                }
+                else
+                {
+
+                    <i class="form-check-input icon-on  fa fa-toggle-on fa-lg"></i>
+                }
+            </td>
+            <td>
+
+                @if (!item.Main_Image)
+                {
+                    @Html.ActionLink(" ", "Delete", new { id = item.Image_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Proizvod?');" })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <script>
+    $(document).ready(function () {
+    $('#tablePhotos').DataTable()
+    });
+    </script>
+
+}

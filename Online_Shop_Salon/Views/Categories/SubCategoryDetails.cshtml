@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "SubCategoryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="jumborton-info">
+    <div class="jumbotron">
+        <h1 class="display-5">EShop - Salon Nameštaja</h1>
+    </div>
+</section>
+
+<section id="category-items">
+    <div class="container-fluid mt-2 mb-5">
+        <div class="products">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <div class="row g-3">
+                        @foreach (var category in ViewBag.subCategories)
+                        {
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img style="width:80%!important;" src="/content/img/kategorije/@category.Category_Image" class="card-img-top">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between"> <span class="font-weight-bold">@category.Category_Name</span></div>
+                                        <p class="card-text mb-1 mt-1">@category.Description</p>
+                                    </div>
+                                    <hr>
+                                    <div class="card-body">
+                                        <div class="text-right buttons">
+                                            @Html.ActionLink("Proizvod", "../Products/ProductDetails", new { id = category.Category_Id }, new { @class = "btn btn-dark" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

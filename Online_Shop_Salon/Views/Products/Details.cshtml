@@ -1,0 +1,61 @@
+﻿@model Online_Shop_Salon.Models.tbl_Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<section id="product-details-section">
+    <div class="container">
+        <div class="row ">
+           
+            <div class="col-lg-5 ">
+                <img class="rounded float-start" style="padding: 15px;width:100%;" src="@ViewBag.MainImage"  alt="" >
+            </div>
+            <div class="col-lg-5 ml-auto">
+                <div class="product-description">
+                    <div class="container">
+                        <div class="row"><span>@ViewBag.Product.Category_Id</span></div>
+                        <div class="row"><h1>@ViewBag.Product.Product_Name</h1></div>
+
+                        <div class="row">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at.
+                                Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.
+                            </p>
+                        </div>
+                        <div class="row">
+                            <span>Cena:</span>&nbsp;&nbsp;
+                            <h3>@ViewBag.Product.Price_Per</h3>
+                        </div>
+                        <form action="" method="" class="">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-4">
+                                    <label for="quantity_product">Količina</label>
+                                    <input type="number" class="form-control" min="1" max="10" value="1" readonly>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 25px;">
+                                <div class="col-lg-10">
+                            
+                                    @Html.ActionLink("Dodaj u Korpu", "../cartShop/AddToCart", new { id=ViewBag.Product.Product_Id}, new { @class = "btn btn-success mb-3" })
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section scripts{
+
+   
+}

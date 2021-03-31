@@ -1,0 +1,72 @@
+﻿@model  Online_Shop_Salon.Models.SlideShow
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink(" Create New", "Create", null, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+</p>
+
+<table id="tableSlider" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+
+            <th>Photo</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.SliderShows)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+
+                <td><img class="zoom" style="width:50px;height:25px;" src="@item.Name" /></td>
+                @if (item.Status == true)
+                {
+                    <td><i class="fa fa-toggle-on fa-lg" style="text-align:center;"></i></td>
+                }
+                else
+                {
+                    <td><i class="fa fa-toggle-off fa-lg" style="text-align:center;"></i></td>
+                }
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" }) |
+
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Banner?'); " })
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tableSlider').DataTable({
+                'paging': true,
+                'langthChange': false,
+                'searching': false
+            });
+        });
+
+
+    </script>
+
+}
+
