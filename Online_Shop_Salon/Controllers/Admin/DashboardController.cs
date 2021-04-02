@@ -15,7 +15,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         #region DashBoard Index Page
         public ActionResult Index()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }

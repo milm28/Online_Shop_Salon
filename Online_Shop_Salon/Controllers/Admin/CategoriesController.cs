@@ -20,7 +20,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         /// <returns></returns>
         public ActionResult Index()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
 
             return View();
         }
@@ -142,8 +142,8 @@ namespace Online_Shop_Salon.Controllers.Admin
         [AllowAnonymous]
         public ActionResult SubCategoryDetails(int id)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
-            ViewBag.subCategories = db.tbl_Category.Where(x => x.ParentId == id).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.subCategories = db.tbl_Category.Where(x => x.ParentId == id && x.Status == true).ToList();
 
             return View();
         }

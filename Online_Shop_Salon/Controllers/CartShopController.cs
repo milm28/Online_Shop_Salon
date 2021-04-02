@@ -11,11 +11,17 @@ namespace Online_Shop_Salon.Controllers
     public class CartShopController : Controller
     {
         private Online_shopEntities db = new Online_shopEntities();
+       
 
         #region CheckDetails Page for product
         public ActionResult CheckoutDetails()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            if (Request.Cookies["user_cookie_name"] == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+           
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             return View();
         }
         #endregion
@@ -48,6 +54,7 @@ namespace Online_Shop_Salon.Controllers
                 List<Item> cart = (List<Item>)Session["cart"];
                 var product = db.tbl_Product.Find(id);
                 List<int> addedItems = new List<int>();
+
                 foreach (var item in cart)
                 {
                     addedItems.Add(item.Product.Product_Id);
@@ -63,7 +70,8 @@ namespace Online_Shop_Salon.Controllers
                             Product = product,
                             Quantity = (prevQty + 1)
                         });
-                        Session["cart"] = cart;
+                        
+                        Session["cart"] = cart.OrderBy(s => s.Product.Product_Name).ToList();
                     }
                     else
                     {
@@ -79,12 +87,17 @@ namespace Online_Shop_Salon.Controllers
                                 Quantity = 1
                             });
                             Session["cart"] = cart;
-                        }                       
+                            break;
+                        }
+                        
                     }
+                   
+
                 }
                 //return RedirectToAction("../Products/Details/", new { id = id });
                 return Redirect(Request.UrlReferrer.ToString());
             }
+           
         }
         #endregion
 
@@ -106,7 +119,7 @@ namespace Online_Shop_Salon.Controllers
                     if(item.Product.Product_Id == id)
                     {
                         int prQty = item.Quantity;
-                        if(prQty > 0)
+                        if(prQty > 1)
                         {
                             cart.Remove(item);
                             cart.Add(new Item()
@@ -119,7 +132,7 @@ namespace Online_Shop_Salon.Controllers
                         break;
                     }             
                 }
-                Session["cart"] = cart;
+                Session["cart"] = cart.OrderBy(s => s.Product.Product_Name).ToList();
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
@@ -127,7 +140,7 @@ namespace Online_Shop_Salon.Controllers
 
         #region Delete Product from cart
         /// <summary>
-        /// delete product from cart
+        /// delete product from cart 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -144,7 +157,7 @@ namespace Online_Shop_Salon.Controllers
                     break;
                 }
             }
-            Session["cart"] = null;
+            Session["cart"] = cart;
             //return RedirectToAction("../Products/Details/", new { id = id });
             return Redirect(Request.UrlReferrer.ToString());
 
@@ -158,12 +171,12 @@ namespace Online_Shop_Salon.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "User")]
+       
         public ActionResult CheckOut(int? userId)
         {
             
             var customer = db.tbl_Account.FirstOrDefault(x => x.Account_Id == userId);
-            if (userId != null)
+            if (userId != null && customer.Role_Id !=1)
             {
                 //cREATE INVOICE
                 var invoice = new tbl_Invoice()
@@ -198,7 +211,9 @@ namespace Online_Shop_Salon.Controllers
 
                 return RedirectToAction("Thanks", "CartShop");
             }
-            return RedirectToAction("Login", "login");
+            TempData["Message_CheckOut_Error"] = "Morate da se ulogujete kao kupac!!";
+      
+            return RedirectToAction("Login", "Login");
         }
         #endregion
 
@@ -210,7 +225,7 @@ namespace Online_Shop_Salon.Controllers
         [Authorize(Roles = "User")]
         public ActionResult Thanks()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             return View();
         }
         #endregion

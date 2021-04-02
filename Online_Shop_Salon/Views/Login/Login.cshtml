@@ -36,6 +36,17 @@
                             </div>
                         </div>
                     }
+                    @if (TempData["Message_CheckOut_Error"] != null)
+                    {
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                    <strong> @TempData["Message_CheckOut_Error"]</strong>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <h1 class="mb-0">Login</h1>
                     <p>Unesite Podatke za logovanje</p>
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "font-weight-bold mb-0" })

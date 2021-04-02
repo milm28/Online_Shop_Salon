@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<section id="jumborton-info">
+    <div class="jumbotron" style="padding:20px;">
+        <h1 class="display-5">EShop - Salon Nameštaja</h1>
+    </div>
+</section>
 
 <section id="product-details-section">
     <div class="container">
@@ -17,7 +21,7 @@
             <div class="col-lg-5 ml-auto">
                 <div class="product-description">
                     <div class="container">
-                        <div class="row"><span>@ViewBag.Product.Category_Id</span></div>
+                        <div class="row"><span>@ViewBag.Product.tbl_Category.Category_Name</span></div>
                         <div class="row"><h1>@ViewBag.Product.Product_Name</h1></div>
 
                         <div class="row">

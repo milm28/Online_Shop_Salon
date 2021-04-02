@@ -142,7 +142,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         #region Product Details UserPage
         public ActionResult Details(int id)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
 
             var product = db.tbl_Product.Find(id);
             var mainImage = product.tbl_Photo.SingleOrDefault(p => p.Status && p.Main_Image);
@@ -155,7 +155,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         #region ProductDetails for User Page
         public ActionResult ProductDetails(int id)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             var product = db.tbl_Product.Where(x => x.Category_Id == id).ToList();
 
             ViewBag.Products = product;
@@ -169,7 +169,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         [HttpGet]
         public ActionResult Search(string keyword)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) && p.Status != false && p.Status != null).ToList();
             ViewBag.Products = products;
             ViewBag.Keyword = keyword;

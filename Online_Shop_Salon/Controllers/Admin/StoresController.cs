@@ -76,7 +76,7 @@ namespace Online_Shop_Salon.Controllers.Admin
 
         #endregion
 
-        #region Delete Store
+        #region OffLine status Store
         /// <summary>
         /// Delete SlideShow Image from dataBase
         /// </summary>
@@ -84,7 +84,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         /// <returns></returns>
         /// 
         [HttpGet]
-        public ActionResult Delete(int? id)
+        public ActionResult OffLine(int? id)
         {
              tbl_Store store = db.tbl_Store.Find(id);
             store.Status = false;   

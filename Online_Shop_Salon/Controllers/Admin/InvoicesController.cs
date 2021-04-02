@@ -20,6 +20,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Index()
         {
             ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
+            
             return View();
         }
         #endregion
@@ -74,7 +75,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult SetStatus(int id)
         {
             var invoice = db.tbl_Invoice.Find(id);
-            if (invoice.Status == true ? invoice.Status = false : invoice.Status = true) ;
+            if (invoice.Status == true ? invoice.Status = false : invoice.Status = true);
             db.SaveChanges();
             return RedirectToAction("Index", new { id = invoice.Invoice_Id });
         }

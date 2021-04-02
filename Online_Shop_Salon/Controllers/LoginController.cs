@@ -16,7 +16,7 @@ namespace Online_Shop_Salon.Controllers
         #region Register Page
         public ActionResult Register()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }
@@ -46,7 +46,7 @@ namespace Online_Shop_Salon.Controllers
         #region Login Page
         public ActionResult Login()
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }
@@ -61,17 +61,22 @@ namespace Online_Shop_Salon.Controllers
 
             if (user != null)
             {
-                Session["user_id"] = user.Account_Id;
-                Session["user_name"] = user.UserName;
-               var Ticket = new FormsAuthenticationTicket(login.Email, true, 3000);
+               
+                ///za ispis na layoutu
+                HttpCookie UserCookieName = new HttpCookie("user_cookie_name", user.UserName.ToString());
+                UserCookieName.Expires.AddDays(10);
+                HttpContext.Response.SetCookie(UserCookieName);
+                HttpCookie UserCookieId = new HttpCookie("user_cookie_id", user.Account_Id.ToString());
+                UserCookieId.Expires.AddDays(10);
+                HttpContext.Response.SetCookie(UserCookieId);
+                ///end za ispis
+
+                var Ticket = new FormsAuthenticationTicket(login.Email, true, 3000);
                string Encrypt = FormsAuthentication.Encrypt(Ticket);
                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, Encrypt);
                cookie.Expires = DateTime.Now.AddHours(3000);
                cookie.HttpOnly = true;
                Response.Cookies.Add(cookie);
-             
-
-
 
                 if (user.Role_Id == 1)
                 {
