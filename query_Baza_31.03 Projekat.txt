@@ -382,6 +382,8 @@ INSERT INTO [dbo].[tbl_Role]([Role_Name],[Status])VALUES('User',1)
 
 INSERT INTO [dbo].[tbl_Account]([UserName],[Password],[FirstName],[LastName],[Role_Id],[City],[Address],[Email],[Status])VALUES
            ('Admin','123','Admin','Admin',1,'Crvenka','Zmaj Jovina 17','admin@admin.com',1)
+INSERT INTO [dbo].[tbl_Account]([UserName],[Password],[FirstName],[LastName],[Role_Id],[City],[Address],[Email],[Status])VALUES
+	   ('Nikola','123','Nikola','Nikolic',2,'Novi Sad','Balkanska, 21','nikola@gmail.com',1)
 
 INSERT INTO [dbo].[tbl_Category]([Category_Name],[Description],[ParentId],[Status],[Category_Image])VALUES
            ('Dnevna Soba','Lorem Ipsum is simply dummy text of the printing and typesetting industry.',NULL,1,'dnev-sobe.jpg')
