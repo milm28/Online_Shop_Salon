@@ -1,96 +1,119 @@
 ﻿@model Online_Shop_Salon.Models.tbl_Invoice
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Faktura Detalji";
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
 
-<h2>Detalji Porudzbine</h2>
 @Html.ActionLink("Povratak na Fakture", "Index")<br>
-<table id="tableInvoice" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Faktura Broj
-            </th>
-            <th>
-                Kupac
-            </th>
-            <th>
-                Proizvod
-            </th>
-
-            <th>
-                Kolicina
-            </th>
-            <th>
-                Cena po Komadu
-            </th>
-            <th>
-                Cena sa pdv
-            </th>
-            <th>
-                Datum Kupovine
-            </th>
-        </tr>
-    </thead>
-    @{ int Total = 0;}
-    <tbody>
-        @foreach (var item in ViewBag.InvoicesDetails)
-        {
-            int lineTotal = Convert.ToInt32(item.Quantity * item.Price_Per);
-            Total = Convert.ToInt32(@Total + lineTotal);
-            <tr>
-                <td>
-                    @item.Invoice_Id
-                </td>
-                <td>
-                    @item.tbl_Invoice.tbl_Account.UserName
-                </td>
-                <td>
-                    @item.tbl_Product.Product_Name
-                </td>
-                <td>
-                    @item.Quantity
-                </td>
-                <td>
-                    @item.Price_Per
-                </td>
-                <td>
-                    @item.Total_Price_Tax
-                </td>
-                <td>
-                    @item.tbl_Invoice.Created.ToString("dd/MM/yyyy")
-                </td>
-            </tr>
-
-        }
 
 
-    </tbody>
-    <tr>
-        
-        <td colspan="6"  style="text-align:right;">
-            @Total Din.
-        </td>
-    </tr>
+<div id="invoice">
 
-</table>
+   
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <a target="_blank" href="/">
+                            <img src="~/Content/img/logo/logo.png" data-holder-rendered="true" />
+                        </a>
+                    </div>
+                    <div class="col company-details">
+                        <h2 class="name">
+                            <a target="_blank" href="/">
+                                Online - EShop
+                            </a>
+                        </h2>
+                        <div>Nikole Pašića, 25, Novi Sad, 21000</div>
+                        <div>+381 21 623 222</div>
+                        <div>office@eshop.com</div>
+                        <div>Račun: 225-444-5555-22</div>
+                    </div>
+                </div>
+            </header>
+            <main>
+               
+                    <div class="row contacts">
+                        <div class="col invoice-to">
+                            <div class="text-gray-light">Fakturisano na:</div>
+                            <h2 class="to">@ViewBag.InvoiceData.tbl_Invoice.tbl_Account.UserName</h2>
+                            <div class="address"> @ViewBag.InvoiceData.tbl_Invoice.tbl_Account.City, @ViewBag.InvoiceData.tbl_Invoice.tbl_Account.Address</div>
+                            <div class="email"><a href="mailto:@ViewBag.InvoiceData.tbl_Invoice.tbl_Account.Email">@ViewBag.InvoiceData.tbl_Invoice.tbl_Account.Email</a></div>
+                        </div>
+                        <div class="col invoice-details">
+                            <h1 class="invoice-id">Faktura: @ViewBag.InvoiceData.Invoice_Id</h1>
+                            <div class="date">Datum Fakturisanja:@ViewBag.InvoiceData.tbl_Invoice.Created.ToString("dd/MM/yyyy")</div>
+                            <div class="date"></div>
+                        </div>
+                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-left">Proizvod</th>
+                                <th class="text-right">Jedinična Cena</th>
+                                <th class="text-right">Količina</th>
+                                <th class="text-right">Ukupno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int Total = 0;
+                                int i = 0;
+                                }
+                            @foreach (var item in ViewBag.InvoicesDetails)
+                            {
+                                int lineTotal = Convert.ToInt32(item.Quantity * item.Price_Per);
+                                Total = Convert.ToInt32(@Total + lineTotal);
+                                i = i + 1;
+                                <tr>
+                                    <td class="no">@i</td>
+                                    <td class="text-left">
+                                        <h3>
+                                            @item.tbl_Product.Product_Name
+                                        </h3>
+                                    </td>
+                                    <td class="unit">@item.Price_Per</td>
+                                    <td class="qty">@item.Quantity</td>
+                                    <td class="total">@Convert.ToInt32(@item.Price_Per * @item.Quantity)</td>
+                                </tr>
+                            }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+                            </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td colspan="2">Ukupno bez PDV</td>
+                                <td>@Total Din.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td colspan="2">PDV 20%</td>
+                                <td>@Convert.ToInt32(@Total * 0.2) Din.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td colspan="2">Ukupno za naplatu</td>
+                                <td>@Convert.ToInt32(@Total + (@Convert.ToInt32(@Total * 0.2)))Din.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div class="notices" style="margin-top:10%;">
+                        <div>Napomena:</div>
+                        <div class="notice">Datum valute je 30 dana od izdate fakture!</div>
+                    </div>
+                
+            </main>
+            <footer>
+                Ovaj dokument je validan bez Pečata!
+            </footer>
+        </div>
+      
+        <div></div>
+    </div>
+</div>
 
-@section scripts{
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#tableInvoice').DataTable({
-                'paging': true,
-                'langthChange': false
-            });
-        });
 
 
-    </script>
-
-}

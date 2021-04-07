@@ -1,7 +1,7 @@
 ﻿@model Online_Shop_Salon.Models.tbl_Account
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Registruj Korisnika";
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
 
@@ -86,11 +86,11 @@
                                 <div class="col-md-6">
                                 @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label"} })
                                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                                    </div>
+                                 </div>
                             </div>
                          </div>
                          <div class="form-group">
-                              <small><a href="/dashboard/" class="form-text text-muted">Vrati se na Listu</a></small>
+                             <small>@Html.ActionLink("Vrati se na listu", "Index")</small>
                          </div>
                          <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
                     </div>

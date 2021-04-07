@@ -53,7 +53,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Create(int Product_Id, tbl_Photo photo)
         {
 
-            if (photo.ImageFile.FileName != null)
+            if (photo.ImageFile != null)
             {
                 string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
                 string extension = Path.GetExtension(photo.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name

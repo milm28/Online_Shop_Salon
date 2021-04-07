@@ -46,11 +46,15 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
-            var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
-            ViewBag.InvoicesDetails = invoicesDetails;
-
-            return View("InvoiceDetailsUser");
+           
+           
+                ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
+                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+                var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
+                ViewBag.InvoicesDetails = invoicesDetails;
+                return View("InvoiceDetailsUser");
+          
+          
         }
         #endregion
 
@@ -62,6 +66,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
             var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
             ViewBag.InvoicesDetails = invoicesDetails;
 

@@ -601,13 +601,13 @@
     <Content Include="Views\Invoices\Index.cshtml" />
     <Content Include="Views\Invoices\ListInvoice.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetailsUser.cshtml" />
+    <Content Include="Views\Stores\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\proizvodi\dvosedi\" />
     <Folder Include="Content\img\proizvodi\trepezarija\" />
     <Folder Include="Content\img\slider\" />
-    <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

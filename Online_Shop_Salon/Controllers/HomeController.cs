@@ -19,9 +19,9 @@ namespace Online_Shop_Salon.Controllers
         public ActionResult Index()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
-            ///Problem sa slider modelom, kada prebacim projekat na drugi racunar
-            // var slideShows = db.SlideShows.Where(s => s.Status == true).ToList();
-            // ViewBag.slideShows = slideShows;
+            ///Problem sa slider modelom, kada prebacim projekat na drugi racunar(moraju da se ubace slike u bazu)
+            var slideShows = db.SlideShows.Where(s => s.Status == true).ToList();
+            ViewBag.slideShows = slideShows;
             return View();
         }
         #endregion

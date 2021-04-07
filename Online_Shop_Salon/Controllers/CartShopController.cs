@@ -88,11 +88,8 @@ namespace Online_Shop_Salon.Controllers
                             });
                             Session["cart"] = cart;
                             break;
-                        }
-                        
+                        } 
                     }
-                   
-
                 }
                 //return RedirectToAction("../Products/Details/", new { id = id });
                 return Redirect(Request.UrlReferrer.ToString());
@@ -157,7 +154,15 @@ namespace Online_Shop_Salon.Controllers
                     break;
                 }
             }
-            Session["cart"] = cart;
+            if(cart.Count == 0)
+            {
+                Session["cart"] = null;
+            }
+            else
+            {
+                Session["cart"] = cart;
+            }
+            
             //return RedirectToAction("../Products/Details/", new { id = id });
             return Redirect(Request.UrlReferrer.ToString());
 

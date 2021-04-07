@@ -1,6 +1,7 @@
 ﻿using Online_Shop_Salon.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -49,6 +50,13 @@ namespace Online_Shop_Salon.Controllers.Admin
 
                     if (ModelState.IsValid)
                     {
+                        string fileName = Path.GetFileNameWithoutExtension(category.ImageFile.FileName);
+                        string extension = Path.GetExtension(category.ImageFile.FileName);   // dodali smo u model tbl_CAtegory property ImageFile za input name
+                        fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        category.Category_Image = "/content/img/kategorije/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
+                        category.ImageFile.SaveAs(fileName);
+                      
 
                         category.ParentId = null;
 
@@ -104,18 +112,37 @@ namespace Online_Shop_Salon.Controllers.Admin
         [HttpPost]
         public ActionResult Edit(int id, tbl_Category category)
         {
-            var currentCategory = db.tbl_Category.Find(id);
-            currentCategory.Category_Name = category.Category_Name;
-            currentCategory.Category_Image = category.Category_Image;
-            currentCategory.Status = category.Status;
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var currentCategory = db.tbl_Category.Find(id);
+                if (category.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(category.ImageFile.FileName);
+                    string extension = Path.GetExtension(category.ImageFile.FileName);   // dodali smo u model tbl_CAtegory property ImageFile za input name
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    category.Category_Image = "/content/img/kategorije/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
+                    category.ImageFile.SaveAs(fileName);
+                    currentCategory.Category_Image = category.Category_Image;
+                }
+                
+                
+                currentCategory.Category_Name = category.Category_Name;
+                currentCategory.Description= category.Description;
+                currentCategory.Status = category.Status;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            
             return RedirectToAction("Index");
 
 
         }
         #endregion
 
-        #region Edit Sub Category Admin Panel
+        #region ADD Sub Category Admin Panel
         [HttpGet]
         public ActionResult AddSubCategory(int id)
         {
@@ -130,9 +157,18 @@ namespace Online_Shop_Salon.Controllers.Admin
 
         public ActionResult AddSubCategory(int ParentId, tbl_Category subcategory)
         {
-            db.tbl_Category.Add(subcategory);
-
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(subcategory.ImageFile.FileName);
+                string extension = Path.GetExtension(subcategory.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                subcategory.Category_Image = "/content/img/kategorije/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
+                subcategory.ImageFile.SaveAs(fileName);
+                db.tbl_Category.Add(subcategory);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
         }
         #endregion

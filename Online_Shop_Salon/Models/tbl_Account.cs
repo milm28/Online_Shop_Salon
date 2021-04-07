@@ -41,6 +41,8 @@ namespace Online_Shop_Salon.Models
         [Display(Name = "Prezime")]
         [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [Display(Name = "Role")]
         public int Role_Id { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Grad")]

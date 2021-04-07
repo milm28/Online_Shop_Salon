@@ -5,7 +5,6 @@
 }
 
 
-<h2>Dodaj Sliku</h2>
 @if (TempData["Message_Photo_Error"] != null)
 {
     <div class="container">
@@ -20,39 +19,47 @@
 
 @using (Html.BeginForm("Create", "Photos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken();
     @Html.HiddenFor(model => model.Product_Id)
-    <div class="form-horizontal">
-        <h4>Proizvoda</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Image_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="ImageFile" />
-            </div>
-        </div>
+    <div class="container">
+        <div class="row row h-100 align-items-center justify-content-centerr">
+            <div class="col align-self-cente ">
+                <div class="card">
+                    <div class="card-header text-center display-4">Dodaj sliku za proizvod</div>
+                    <div class="card-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.Image_Name, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-10">
+                                    <input type="file" name="ImageFile" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4 ">
+                                <div class="col-md-6">
+                                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label " })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label" } })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <small>@Html.ActionLink("Vrati se na listu", "../products/")</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
+
 }
-<div>
-    @Html.ActionLink("Back to List", "index", "Products")
-</div>
 
 
 

@@ -51,6 +51,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                tbl_Product.Status = false;
                 db.tbl_Product.Add(tbl_Product);
                 db.SaveChanges();
 
@@ -88,7 +89,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             var category_id = db.tbl_Category.Where(x => x.ParentId != null);
             var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name", tbl_Product.Category_Id);
             ViewBag.Category_Id = Category_Id;
-            ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name");
+            ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name", tbl_Product.StoreId);
             return View(tbl_Product);
         }
 
@@ -169,8 +170,9 @@ namespace Online_Shop_Salon.Controllers.Admin
         [HttpGet]
         public ActionResult Search(string keyword)
         {
+            //viewbag za dropdown iz navbar-a
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
-            var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) && p.Status != false && p.Status != null).ToList();
+            var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) || p.tbl_Category.Category_Name.Contains(keyword) && p.Status != false && p.Status != null).ToList();
             ViewBag.Products = products;
             ViewBag.Keyword = keyword;
             ViewBag.CountProducts = products.Count;

@@ -22,6 +22,17 @@ namespace Online_Shop_Salon.Controllers.Admin
         }
         #endregion
 
+        #region Get DetailsList for Admin panel
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            var StoresDetails = db.tbl_Store.Find(id);
+        
+            
+            return View(StoresDetails);
+        }
+        #endregion
+
         #region Create Store from Admin Panel
         public ActionResult Create()
         {

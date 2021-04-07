@@ -1,0 +1,109 @@
+﻿@model Online_Shop_Salon.Models.tbl_Store
+
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("<< Nazad ", "Index")
+</p>
+<div class="container">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+
+                            <div class="mt-3">
+                                <h4>@Html.DisplayFor(model => model.Store_Name)</h4>
+                                <p class="text-secondary mb-1">@Html.DisplayFor(model => model.Address)</p>
+                                <p class="text-muted font-size-sm"> @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.Zip_Code)</p>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Store_Id }, new { @class = "btn btn-outline-primary", @style = "margin:7px;" })
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.Owner_Name)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary"><span>@Html.DisplayFor(model => model.Owner_Name)</span></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0"> @Html.DisplayNameFor(model => model.Email)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DisplayFor(model => model.Email)
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.Phone)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DisplayFor(model => model.Phone)
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.Web_Site)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DisplayFor(model => model.Web_Site)
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.PIB)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DisplayFor(model => model.PIB)
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.Bank_Account)</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DisplayFor(model => model.Bank_Account)
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">@Html.DisplayNameFor(model => model.Status)</h6>
+                            </div>
+                            @if (Model.Status == true)
+                            {
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="badge badge-success badge-success-alt">Online</div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="badge badge-danger badge-danger-alt">Offline</div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

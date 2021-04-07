@@ -72,12 +72,9 @@
 
                    @if (Session["cart"] != null)
                    {
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" style="color: lawngreen;" aria-haspopup="true" aria-expanded="false">
-                       
+                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" style="color: lawngreen;" aria-haspopup="true" aria-expanded="false">                      
                             <i style="color:lawngreen" class="fa fa-shopping-cart"></i><span style="color:red;position:absolute;top:1px;font-size:10px;"></span>
-
-                            </a>
-
+                         </a>
                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink-333" style="width:250px;">
                             @foreach (Item item in (List<Item>)Session["cart"])
                             {
@@ -105,7 +102,10 @@
                             {
                                 @Request.Cookies["user_cookie_name"].Value.ToString()
                             }
+                            @if (@Request.Cookies["user_cookie_name"].Value != "admin")
+                            { 
                             <a class="dropdown-item waves-effect waves-light" href="@Url.Action("ListInvoice", "Invoices",new {id=Request.Cookies["user_cookie_id"].Value.ToString()})">Računi</a>
+                            }
                             <a class="dropdown-item waves-effect waves-light" href="@Url.Action("Logout", "Login")">Logout</a>
 
                         </div>
@@ -131,6 +131,7 @@
         @RenderBody()
         <hr />
     </div>
+    <!--Items Info-->
     <section id="info-items">
         <div class="container">
             <div class="row">
@@ -224,7 +225,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/notify.min.js"></script>
+  
 
     @RenderSection("scripts", required: false)
 </body>

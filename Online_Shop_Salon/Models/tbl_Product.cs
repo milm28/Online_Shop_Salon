@@ -58,7 +58,7 @@ namespace Online_Shop_Salon.Models
         [Required(ErrorMessage = "Polje je obavezno")]
         public int Category_Id { get; set; }
         [Display(Name = "Status")]
-        public Nullable<bool> Status { get; set; }
+        public bool Status { get; set; }
     
         public virtual tbl_Category tbl_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
