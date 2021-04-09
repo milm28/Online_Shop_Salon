@@ -5,14 +5,13 @@
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
 
-<h2>Index</h2>
 <style>
     th {
         text-align: center !important;
     }
 </style>
 <p>
-    @Html.ActionLink(" Dodaj Sliku", "Create", null, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+    @Html.ActionLink(" Dodaj Sliku", "Create", null, new { @class = "btn  btn-success fa fa-plus fa-sm" })
 </p>
 
 <table id="tableSlider" class="uk-table uk-table-hover uk-table-striped" style="width:100%; text-align:center;">
@@ -48,7 +47,7 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" }) |
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" }) 
 
                     @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Banner?'); " })
                 </td>

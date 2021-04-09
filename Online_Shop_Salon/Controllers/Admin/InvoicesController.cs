@@ -30,11 +30,18 @@ namespace Online_Shop_Salon.Controllers.Admin
         [Authorize(Roles="User")]
         public ActionResult ListInvoice(int id)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
-            //ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
-            ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
-                    
+            
+                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+                //ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
+                ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
+                var invoiceAccount = db.tbl_Invoice.Where(x => x.Account_Id == id).FirstOrDefault();
+            ViewBag.InvoiceAccount = invoiceAccount;
+                if (invoiceAccount == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             return View();
+            
         }
         #endregion
 
@@ -47,14 +54,11 @@ namespace Online_Shop_Salon.Controllers.Admin
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
            
-           
-                ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
-                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
-                var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
-                ViewBag.InvoicesDetails = invoicesDetails;
-                return View("InvoiceDetailsUser");
-          
-          
+            ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
+            ViewBag.InvoicesDetails = invoicesDetails;
+            return View("InvoiceDetailsUser");
         }
         #endregion
 

@@ -159,15 +159,25 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(subcategory.ImageFile.FileName);
-                string extension = Path.GetExtension(subcategory.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name
-                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                subcategory.Category_Image = "/content/img/kategorije/" + fileName;
-                fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
-                subcategory.ImageFile.SaveAs(fileName);
-                db.tbl_Category.Add(subcategory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var valNewCategory = db.tbl_Category.Where(c => c.Category_Name == subcategory.Category_Name).FirstOrDefault();
+                if (valNewCategory == null)
+                {
+
+                    string fileName = Path.GetFileNameWithoutExtension(subcategory.ImageFile.FileName);
+                    string extension = Path.GetExtension(subcategory.ImageFile.FileName);   // dodali smo u model Photo property ImageFile za input name
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    subcategory.Category_Image = "/content/img/kategorije/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
+                    subcategory.ImageFile.SaveAs(fileName);
+                    db.tbl_Category.Add(subcategory);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message_Error"] = "Kategorija ili Podkategorija postoje u Bazi!";
+                    return View(subcategory);
+                }
             }
             return RedirectToAction("Index");
         }

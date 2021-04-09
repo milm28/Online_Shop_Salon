@@ -5,11 +5,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
-
-<h2>Proizvodi</h2>
-
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
 <p>
-    @Html.ActionLink(" Dodaj Proizvod", "Create", null, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+    @Html.ActionLink(" Dodaj Proizvod", "Create", null, new { @class = "btn btn-success fa fa-plus fa-sm" })
 </p>
 @if (TempData["Message_Product_Error"] != null)
 {
@@ -35,7 +37,6 @@
             <th>Kategorija</th>
             <th>Tools</th>
             <th>Slike</th>
-
         </tr>
     </thead>
     <tbody>
@@ -64,9 +65,9 @@
                     }
                 </td>
                 <td>@(item.tbl_Category.Category_Name)</td>
-                <td>|
-                    @Html.ActionLink(" ", "Edit", new { id = item.Product_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" }) |
-                    @Html.ActionLink(" ", "Delete", new { id = item.Product_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Proizvod?');" }) |
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.Product_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" }) 
+                    @Html.ActionLink(" ", "Delete", new { id = item.Product_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Proizvod?');" }) 
                    
                 </td>
                 <td>
@@ -94,6 +95,7 @@
             $('#tableProducts').DataTable({
                 'paging': true,
                 'langthChange': false,
+                'columnDefs': [{ orderable: false, targets: [7,8] }],
                 "order": [[0, "desc"]]
             });
         });

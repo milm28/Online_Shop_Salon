@@ -105,26 +105,29 @@
                                 @Html.EditorFor(model => model.Bank_Account, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Bank_Account, "", new { @class = "text-danger" })
                             </div>
-
-
-
-
-                            <div class="form-group col-md-4 ">
+ 
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 ">
                                 <div class="col-md-6">
                                     @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label " })
                                 </div>
                                 <div class="col-md-6">
                                     @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label" } })
+                                   
+                                </div>
+                                <div class="col-md-12">
+                                  
                                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <small>@Html.ActionLink("Vrati se na listu", "Index")</small>
+                            <div class="form-group">
+                                <small>@Html.ActionLink("Vrati se na listu", "Index")</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
                     </div>
-                </div>
             </div>
         </div>
     </div>

@@ -27,20 +27,15 @@ namespace Online_Shop_Salon.Controllers.Admin
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            var check = db.tbl_Store.Where(c => c.Status == true).FirstOrDefault();
-            if (check != null)
-            {
-                var category_id = db.tbl_Category.Where(x => x.ParentId != null);
+           
+                var category_id = db.tbl_Category.Where(x => x.ParentId != null && x.Status==true);
                 var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name");
                 ViewBag.Category_Id = Category_Id;
-                ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name");
-            }
-            else
-            {
-                TempData["Message_Product_Error"] = "Trenutno nemate ni jednu prodavnicu!";
-                return RedirectToAction("index","Products");
-            }
-            return View();
+                var storeId = db.tbl_Store.Where(s =>s.Status == true);
+                var StoreId = new SelectList(storeId, "Store_Id", "Store_Name");
+                ViewBag.StoreId = StoreId;
+            
+                return View();
         }
 
 
@@ -49,26 +44,46 @@ namespace Online_Shop_Salon.Controllers.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create(tbl_Product tbl_Product)
         {
+            var valNewProduct = db.tbl_Product.Where(c => c.Product_Name == tbl_Product.Product_Name).FirstOrDefault();
+            var category_id = db.tbl_Category.Where(x => x.ParentId != null && x.Status == true);
+            var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name");
+            ViewBag.Category_Id = Category_Id;
+            var storeId = db.tbl_Store.Where(s => s.Status == true);
+            var StoreId = new SelectList(storeId, "Store_Id", "Store_Name");
+            ViewBag.StoreId = StoreId;
             if (ModelState.IsValid)
             {
-                tbl_Product.Status = false;
-                db.tbl_Product.Add(tbl_Product);
-                db.SaveChanges();
-
-                var defaoultPhoto = new tbl_Photo
+                if (valNewProduct == null)
                 {
-                    Image_Name = "/ImgProizvodi/no-img.jpg",
-                    Status = false,
-                    Product_Id = tbl_Product.Product_Id,
-                    Main_Image = true
-                };
-                db.tbl_Photo.Add(defaoultPhoto);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                    tbl_Product.Status = false;
+                    db.tbl_Product.Add(tbl_Product);
+                    db.SaveChanges();
+
+                    var defaoultPhoto = new tbl_Photo
+                    {
+                        Image_Name = "/ImgProizvodi/no-img.jpg",
+                        Status = false,
+                        Product_Id = tbl_Product.Product_Id,
+                        Main_Image = true
+                    };
+                    db.tbl_Photo.Add(defaoultPhoto);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message_Error"] = "Proizvod vec postoji u Bazi!";
+                    ViewBag.Category_Id = Category_Id;
+                    ViewBag.StoreId = StoreId;
+                    return View(tbl_Product);
+                }
+
+
             }
 
-            ViewBag.Category_Id = new SelectList(db.tbl_Category, "Category_Id", "Category_Name", tbl_Product.Category_Id);
-            ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name", tbl_Product.StoreId);
+            ViewBag.Category_Id = Category_Id;
+            ViewBag.StoreId = StoreId;
             return View(tbl_Product);
         }
         #endregion
@@ -157,7 +172,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult ProductDetails(int id)
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
-            var product = db.tbl_Product.Where(x => x.Category_Id == id).ToList();
+            var product = db.tbl_Product.Where(x => x.Category_Id == id && x.Status==true).ToList();
 
             ViewBag.Products = product;
 
@@ -170,13 +185,20 @@ namespace Online_Shop_Salon.Controllers.Admin
         [HttpGet]
         public ActionResult Search(string keyword)
         {
-            //viewbag za dropdown iz navbar-a
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
-            var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) || p.tbl_Category.Category_Name.Contains(keyword) && p.Status != false && p.Status != null).ToList();
-            ViewBag.Products = products;
-            ViewBag.Keyword = keyword;
-            ViewBag.CountProducts = products.Count;
-            return View();
+            if (keyword != null && keyword != "")
+            {
+                //viewbag za dropdown iz navbar-a
+                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+                //var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) || p.tbl_Category.Category_Name.Contains(keyword) && (p.Status != false && p.tbl_Category.Status != null)).ToList();
+                var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword)&& p.Status != false).ToList();
+                var categoriesSearch = db.tbl_Category.Where(c => c.Category_Name.Contains(keyword)).ToList();
+                ViewBag.CategoriesSearch = categoriesSearch;
+                ViewBag.Products = products; 
+                ViewBag.Keyword = keyword;
+                ViewBag.CountProducts = products.Count;
+                return View();
+            }
+            return RedirectToAction("index","Home");
         }
         #endregion
     }

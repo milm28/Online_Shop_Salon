@@ -49,81 +49,25 @@
                         <li class="header-menu">
                             <span>Dashboard</span>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-server"></i><span>Kategorija</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "Categories")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Dodaj", "Create", "Categories")
-                                    </li>
-                                </ul>
-                            </div>
+                        
+                        <li>
+                            <a href="/Categories/"><i class="fa fa-folder"></i><span>Kategorije</span></a>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-folder"></i><span>Proizvod</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "Products")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Dodaj", "Create", "Products")
-                                    </li>
-                                </ul>
-                            </div>
+                        <li>
+                            <a href="/Products/"><i class="fa fa-folder"></i><span>Proizvodi</span></a>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-picture-o"></i><span>Slajder</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "SlideShows")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Dodaj", "Create", "SlideShows")
-                                    </li>
-                                </ul>
-                            </div>
+                        <li>
+                            <a href="/SlideShows/"><i class="fa fa-picture-o"></i><span>Sliders</span></a>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-building"></i><span>Saloni</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "Stores")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Dodaj", "Create", "Stores")
-                                    </li>
-                                </ul>
-                            </div>
+
+                        <li>
+                            <a href="/Stores/"><i class="fa fa-building"></i><span>Saloni</span></a>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-address-book"></i><span>Accounts</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "Accounts")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Dodaj", "Create", "Accounts")
-                                    </li>
-                                </ul>
-                            </div>
+                        <li>
+                            <a href="/Accounts/"><i class="fa fa-address-book"></i><span>Accounts</span></a>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#"><i class="fa fa-book"></i><span>Fakture</span></a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        @Html.ActionLink("Lista", "Index", "Invoices")
-                                    </li>
-                                    
-                                </ul>
-                            </div>
+                        <li>
+                            <a href="/invoices/"><i class="fa fa-book"></i><span>Fakture</span></a>
                         </li>
                     </ul>
                 </div>
@@ -131,73 +75,75 @@
             </div>
             <!-- sidebar-content footer -->
             <div class="sidebar-footer">
-                
+
                 <a href="@Url.Action("Logout", "Login")">
                     <i class="fa fa-power-off"></i>
                 </a>
             </div>
         </nav>
-
-        <div class="container body-content" style="padding-top:100px;">
-            @RenderBody()
-
-
-        </div>
+        <main class="page-content"> @*Add for resposive*@
+            <div class="container-fluid">@*Add for resposive*@
+                        <div class="container body-content" style="padding-top:70px;">
+                            @RenderBody()
+                        </div>
+            </div>
+        </main>
     </div><!-- END sidebar-wrapper  -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-
-    <script>
-        jQuery(function ($) {
-
-            $(".sidebar-dropdown > a").click(function () {
-                $(".sidebar-submenu").slideUp(200);
-                if (
-                    $(this)
-                        .parent()
-                        .hasClass("active")
-                ) {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this)
-                        .parent()
-                        .removeClass("active");
-                } else {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this)
-                        .next(".sidebar-submenu")
-                        .slideDown(200);
-                    $(this)
-                        .parent()
-                        .addClass("active");
-                }
-            });
-
-            $("#close-sidebar").click(function () {
-                $(".page-wrapper").removeClass("toggled");
-            });
-            $("#show-sidebar").click(function () {
-                $(".page-wrapper").addClass("toggled");
-            });
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
 
-        });
-    </script>
-    <!--Afte a add element i-->
+            <script>
+                jQuery(function ($) {
+
+                    $(".sidebar-dropdown > a").click(function () {
+                        $(".sidebar-submenu").slideUp(200);
+                        if (
+                            $(this)
+                                .parent()
+                                .hasClass("active")
+                        ) {
+                            $(".sidebar-dropdown").removeClass("active");
+                            $(this)
+                                .parent()
+                                .removeClass("active");
+                        } else {
+                            $(".sidebar-dropdown").removeClass("active");
+                            $(this)
+                                .next(".sidebar-submenu")
+                                .slideDown(200);
+                            $(this)
+                                .parent()
+                                .addClass("active");
+                        }
+                    });
+
+                    $("#close-sidebar").click(function () {
+                        $(".page-wrapper").removeClass("toggled");
+                    });
+                    $("#show-sidebar").click(function () {
+                        $(".page-wrapper").addClass("toggled");
+                    });
 
 
-    @RenderSection("scripts", required: false)
+
+
+                });
+            </script>
+            <!--Afte a add element i-->
+
+
+
+            @RenderSection("scripts", required: false)
 </body>
 </html>
 

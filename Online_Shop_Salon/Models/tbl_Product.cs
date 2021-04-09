@@ -41,13 +41,14 @@ namespace Online_Shop_Salon.Models
 
         [Display(Name = "Cena po Komadu")]
         [Required(ErrorMessage = "Polje je obavezno")]
+        [Range(0.0, 1000000,ErrorMessage ="Cena ne moze da bude preko 1000000.00!")]
+        [DataType(DataType.Currency)]
         
-        [Range(0.0, 100000,ErrorMessage ="Cena ne moze da bude preko 100000.00!")]
         public decimal Price_Per { get; set; }
 
         [Display(Name = "Kolicina u salonu")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [Range(0, 1000, ErrorMessage = "Maksimalna Kolicina u Salonu je 1000!")]
+        [Range(0, 1000, ErrorMessage = "Maksimalno mozete da unesete 500")]
         public int Quantity_Stock { get; set; }
 
         [Display(Name = "Izaberi Salon")]
@@ -59,7 +60,7 @@ namespace Online_Shop_Salon.Models
         public int Category_Id { get; set; }
         [Display(Name = "Status")]
         public bool Status { get; set; }
-    
+      
         public virtual tbl_Category tbl_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Invoice_Detail> tbl_Invoice_Detail { get; set; }

@@ -20,7 +20,7 @@ namespace Online_Shop_Salon.Models
         {
             this.tbl_Product = new HashSet<tbl_Product>();
         }
-    
+      
         public int Store_Id { get; set; }
         [Display(Name = "Ime Salona")]
         [Required(ErrorMessage = "Polje je obavezno")]

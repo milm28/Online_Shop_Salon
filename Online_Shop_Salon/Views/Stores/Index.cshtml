@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
 @using Online_Shop_Salon.Models;
-<h2>Lista Salona</h2>
 
 <p>
-    @Html.ActionLink(" Dodaj Salon", "Create", null, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+    @Html.ActionLink(" Dodaj Salon", "Create", null, new { @class = "btn  btn-success fa fa-plus" })
 </p>
 
 
@@ -18,13 +17,9 @@
                     <th>@Html.DisplayNameFor(model => model.Store_Name)</th>
                     <th>@Html.DisplayNameFor(model => model.Owner_Name)</th>
                     <th>@Html.DisplayNameFor(model => model.City)</th>
-                   
-                  
                     <th>@Html.DisplayNameFor(model => model.Phone)</th>
                     <th>@Html.DisplayNameFor(model => model.Email)</th>
                     <th>@Html.DisplayNameFor(model => model.Status)</th>
-                 
-                   
                     <th>Tools</th>
                 </tr>
             </thead>
@@ -35,7 +30,6 @@
                         <td>@item.Store_Name</td>
                         <td><b>@item.Owner_Name</b></td>
                         <td>@item.City</td>
-                        
                         <td>@item.Phone</td>
                         <td>@item.Email</td>
                         <td>
@@ -53,10 +47,7 @@
                             }
                         </td>
                         <td>
-
                             @Html.ActionLink(" ", "Details", new { id = item.Store_Id}, new { @class = "btn btn-sm btn-info fa fa-info fa-lg" })
-
-                           
                             @Html.ActionLink(" ", "Edit", new { id = item.Store_Id }, new { @class = "btn btn-sm btn-primary fa fa-pencil fa-lg" })
                         </td>
                     </tr>

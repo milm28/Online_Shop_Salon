@@ -78,9 +78,22 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbl_Store).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var checkProduct = db.tbl_Product.Where(p => p.StoreId == tbl_Store.Store_Id).FirstOrDefault();
+                if (checkProduct != null && tbl_Store.Status != true)
+                {
+                    
+                    ModelState.AddModelError("Status", "Postoji Proizvod u magacinu, ne mozete da izbrisete Prodavnicu!");
+                    return View(tbl_Store);
+
+                }
+                else
+                {
+                    db.Entry(tbl_Store).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+              
             }
             return View(tbl_Store);
         }

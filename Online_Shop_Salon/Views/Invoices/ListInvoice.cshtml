@@ -1,51 +1,65 @@
 ﻿
 @{
-    ViewBag.Title = "ListInvoice";
+    ViewBag.Title = "Izvestaj Faktura";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    th{
-        text-align:center!important;
+    th {
+        text-align: center !important;
     }
 </style>
-<h2>Računi</h2>
-<table id="tableInvoice" class="uk-table uk-table-hover uk-table-striped" style="width:100%; text-align:center;">
-    <thead>
-        <tr>
-            <th>Broj Fakture</th>
-            <th width="5%">Status Placanja</th>
-            <th>Kupac</th>
-            <th>Datum Kupovine</th>
-            <th width="5%">Detaljnije</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        @foreach (var item in ViewBag.Invoices)
-        {
-            <tr>
-                <td width="10%">
-                    @item.Invoice_Id
-                </td>
-                <td width="10%">
-                    @if (item.Status == true)
-                    {
-                        @Html.ActionLink(" ", "SetStatus", new { id = item.Invoice_Id }, new { @class = "icon-on fa fa-toggle-on fa-lg" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink(" ", "SetStatus", new { id = item.Invoice_Id }, new { @class = "icon-off fa fa-toggle-off fa-lg" })
-                    }
-                </td>
-                <td>@item.tbl_Account.UserName</td>
-                <td>@item.Created.ToString("dd/MM/yyyy")</td>
-                <td>@Html.ActionLink(" ", "InvoiceDetailsUser", new { id = item.Invoice_Id }, new { @class = "fa fa-info" })</td>
-            </tr>
-        }
-    </tbody>
+@* Provera za priloskom ulaska u fakture, korisnik samo moze svoje fakture da vidi *@
+@if (ViewBag.InvoiceAccount.Account_Id != null)
+{
+    if (ViewBag.InvoiceAccount.Account_Id.ToString() == Request.Cookies["user_cookie_id"].Value)
+    {
+        <table id="tableInvoice" class="uk-table uk-table-hover uk-table-striped" style="width:100%; text-align:center;">
+            <thead>
+                <tr>
+                    <th>Broj Fakture</th>
+                    <th width="5%">Status Placanja</th>
+                    <th>Kupac</th>
+                    <th>Datum Kupovine</th>
+                    <th width="5%">Detaljnije</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Invoices)
+                {
+                    <tr>
+                        <td width="10%">
+                            @item.Invoice_Id
+                        </td>
+                        <td width="10%">
+                            @if (item.Status == true)
+                            {
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="badge badge-success badge-success-alt">Online</div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-9 text-secondary">
+                                    <div class="badge badge-danger badge-danger-alt">Offline</div>
+                                </div>
+                            }
+                        </td>
+                        <td>@item.tbl_Account.UserName</td>
+                        <td>@item.Created.ToString("dd/MM/yyyy")</td>
+                        <td>@Html.ActionLink(" ", "InvoiceDetailsUser", new { id = item.Invoice_Id }, new { @class = "fa fa-info" })</td>
+                    </tr>
+                }
 
-</table>
+            </tbody>
 
+        </table>
+    }
+    else
+    {
+        <h1>Nemate mogucnost da vidite fakture prccc!</h1>
+    }
+}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css">
 
