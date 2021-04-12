@@ -31,9 +31,10 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult ListInvoice(int id)
         {
             
-                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
-                //ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
-                ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
+            //ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
+            ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
                 var invoiceAccount = db.tbl_Invoice.Where(x => x.Account_Id == id).FirstOrDefault();
             ViewBag.InvoiceAccount = invoiceAccount;
                 if (invoiceAccount == null)
@@ -55,7 +56,8 @@ namespace Online_Shop_Salon.Controllers.Admin
             }
            
             ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true ).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
             ViewBag.InvoicesDetails = invoicesDetails;
             return View("InvoiceDetailsUser");

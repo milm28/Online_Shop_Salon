@@ -4,7 +4,11 @@
     ViewBag.Title = "Korisnici";
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
-
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
 <p>
     @Html.ActionLink(" Dodaj Korisnika", "Create", null, new { @class = "btn btn-success fa fa-plus" })
 </p>
@@ -64,7 +68,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.tbl_Role.Role_Name)
                 </td>
@@ -90,6 +93,7 @@
             $('#tableAccount').DataTable({
                 'paging': true,
                 'langthChange': false,
+                'columnDefs': [{ orderable: false, targets: [9] }],
                 "order": [[0, "desc"]]
             });
         });

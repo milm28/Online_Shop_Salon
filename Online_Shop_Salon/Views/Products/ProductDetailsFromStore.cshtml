@@ -1,0 +1,53 @@
+﻿@model Online_Shop_Salon.Models.tbl_Product
+@{
+    ViewBag.Title = "Proizvodi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Online_Shop_Salon.Models;
+
+
+<section id="jumborton-info">
+    <div class="jumbotron">
+        <h1 class="display-5">EShop - Salon Nameštaja </h1>
+    </div>
+</section>
+
+<section id="category-items">
+    <div class="container-fluid mt-2 mb-5">
+        <div class="products">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <div class="row g-3">
+                        @foreach (var item in ViewBag.ProductFromStore)
+                        {
+                            tbl_Product pr = (tbl_Product)item;
+
+                            var photo = pr.tbl_Photo.SingleOrDefault(p => p.Main_Image == true);
+
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img style="width:80%!important;" src="@photo.Image_Name" class="card-img-top">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between"> <span class="font-weight-bold">@item.Product_Name</span></div>
+                                        <div class="d-flex justify-content-between"> <span class="font-weight-bold">@item.tbl_Category.Category_Name</span></div>
+                                        <div class="d-flex justify-content-between"> <span class="font-weight-bold">@item.Quantity_Stock</span></div>
+                                        <p class="card-text mb-1 mt-1">Cena: <strong style="color:darkblue;">@item.Price_Per Din.</strong></p>
+                                    </div>
+                                    <hr>
+                                    <div class="card-body">
+                                        <div class="text-right buttons">
+                                            @Html.ActionLink("Proizvod", "Details", new { id = item.Product_Id }, new { @class = "btn btn-dark" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

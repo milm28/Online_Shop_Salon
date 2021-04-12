@@ -23,9 +23,12 @@ namespace Online_Shop_Salon.Models
         [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
         public string Category_Name { get; set; }
 
+        [Display(Name = "Opis Proizvoda")]
         [StringLength(550,ErrorMessage ="Maksimalno je 550 karaktera!")]
         public string Description { get; set; }
         public Nullable<int> ParentId { get; set; }
+
+        [Display(Name = "Status Kategorije")]
         public bool Status { get; set; }
 
         [Display(Name = "Slika Kategorije")]

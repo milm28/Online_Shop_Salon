@@ -602,6 +602,7 @@
     <Content Include="Views\Invoices\ListInvoice.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetailsUser.cshtml" />
     <Content Include="Views\Stores\Details.cshtml" />
+    <Content Include="Views\Products\ProductDetailsFromStore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

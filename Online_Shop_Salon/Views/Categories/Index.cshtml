@@ -17,7 +17,7 @@
 <table id="tableCategories" class="uk-table uk-table-hover uk-table-striped" style="width:100%; text-align:center;">
     <thead>
         <tr>
-            <th width="5%">ID</th>
+            <!--th width="5%">ID</th-->
             <th>Name</th>
             <th>Perent</th>
             <th width="5%">Status</th>
@@ -29,7 +29,7 @@
         @foreach (var item in ViewBag.categories)
         {
             <tr>
-                <td>@item.Category_Id</td>
+                <!--td>@item.Category_Id</td-->
                 <td style="text-align:left"><b>@item.Category_Name</b></td>
                 <td>@(item.ParentId == null ? "" : item.tbl_Category2.Category_Name)</td>
                 <td>
@@ -52,7 +52,7 @@
                     {
                         @Html.ActionLink(" ", "Delete", new { id = item.Category_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete Kategoriju?');" })
                     }
-                    @Html.ActionLink(" Sub", "AddSubCategory", new { id = item.Category_Id }, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
+                    @Html.ActionLink(" ", "AddSubCategory", new { id = item.Category_Id }, new { @class = "btn btn-sm btn-success fa fa-plus fa-sm" })
                 </td>
             </tr>
             if (item.tbl_Category1.Count != 0)
@@ -60,7 +60,7 @@
                 foreach (var item2 in item.tbl_Category1)
                 {
                     <tr>
-                        <td>@item2.Category_Id</td>
+                        <!--td>@item2.Category_Id</td-->
                         <td>@item2.Category_Name</td>
                         <td>@(item2.ParentId == null ? "" : item2.tbl_Category2.Category_Name)</td>
                         <td>

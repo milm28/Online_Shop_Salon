@@ -6,7 +6,7 @@
 }
 
 <p>
-    @Html.ActionLink("<< Nazad ", "Index")
+    @Html.ActionLink(" Nazad", "index", null, new { @class = "btn btn-sm btn-info fa fa-step-backward fa-sm" })
 </p>
 <div class="container">
     <div class="main-body">
@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     </div>
+                  
                     @Html.ActionLink("Edit", "Edit", new { id = Model.Store_Id }, new { @class = "btn btn-outline-primary", @style = "margin:7px;" })
 
                 </div>

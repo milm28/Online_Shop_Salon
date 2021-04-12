@@ -16,6 +16,8 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Index()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.accountCount = db.tbl_Account.Where(a => a.Status == true && a.Role_Id==1).ToList().Count;
+            ViewBag.storeCount = db.tbl_Store.Where(a => a.Status == true).ToList().Count;
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }

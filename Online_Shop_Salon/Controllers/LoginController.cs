@@ -17,6 +17,7 @@ namespace Online_Shop_Salon.Controllers
         public ActionResult Register()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }
@@ -47,6 +48,7 @@ namespace Online_Shop_Salon.Controllers
         public ActionResult Login()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             ViewBag.products = db.tbl_Product.ToList();
             return View();
         }

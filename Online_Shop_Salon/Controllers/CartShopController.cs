@@ -22,6 +22,7 @@ namespace Online_Shop_Salon.Controllers
             }
            
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             return View();
         }
         #endregion
@@ -231,6 +232,7 @@ namespace Online_Shop_Salon.Controllers
         public ActionResult Thanks()
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             return View();
         }
         #endregion

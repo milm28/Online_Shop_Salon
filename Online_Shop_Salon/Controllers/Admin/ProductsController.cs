@@ -159,7 +159,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Details(int id)
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
-
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             var product = db.tbl_Product.Find(id);
             var mainImage = product.tbl_Photo.SingleOrDefault(p => p.Status && p.Main_Image);
             ViewBag.Product = product;
@@ -172,6 +172,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult ProductDetails(int id)
         {
             ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             var product = db.tbl_Product.Where(x => x.Category_Id == id && x.Status==true).ToList();
 
             ViewBag.Products = product;
@@ -200,6 +201,25 @@ namespace Online_Shop_Salon.Controllers.Admin
             }
             return RedirectToAction("index","Home");
         }
+        #endregion
+
+        #region Get Product from Store
+        /// <summary>
+        /// Store Id for product in stock
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult ProductDetailsFromStore(int id)
+        {
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
+            var productFromStore = db.tbl_Product.Where(s => s.StoreId == id && s.Status == true).ToList();
+
+            ViewBag.ProductFromStore = productFromStore;
+
+            return View();
+        }
+
         #endregion
     }
 }

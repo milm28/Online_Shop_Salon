@@ -28,7 +28,7 @@
 <table id="tableProducts" class="uk-table uk-table-hover uk-table-striped" style="width:100%; text-align:center;">
     <thead>
         <tr>
-            <th>ID</th>
+          
             <th>Ime Proizvoda</th>
             <th>Slika</th>
             <th>Cena Kom.</th>
@@ -45,7 +45,7 @@
             tbl_Product pr = (tbl_Product)item;
             var photo = pr.tbl_Photo.SingleOrDefault(p => p.Main_Image == true);
             <tr>
-                <td>@item.Product_Id</td>
+              
                 <td><b>@item.Product_Name</b></td>
                 <td><img class="zoom" style="width:50px;height:25px;" src="@photo.Image_Name" /></td>
                 <td>@item.Price_Per</td>
