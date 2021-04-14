@@ -30,7 +30,7 @@
             <td width="10%">
                 @if (item.Status == true)
                 {
-                    @Html.ActionLink(" ", "SetStatus", new { id = item.Invoice_Id }, new { @class = "icon-on fa fa-toggle-on fa-lg" })
+                   <i class="icon-on fa fa-toggle-on fa-lg"></i>
                 }
                 else
                 {
@@ -58,7 +58,8 @@
                 'paging': true,
                 'langthChange': false,
                 'columnDefs': [{ orderable: false, targets: [4] }],
-                "order": [[0, "desc"]]
+                "order": [[0, "desc"]],
+                'scrollX': true
             });
         });
 

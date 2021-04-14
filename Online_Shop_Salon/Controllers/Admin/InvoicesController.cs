@@ -37,9 +37,11 @@ namespace Online_Shop_Salon.Controllers.Admin
             ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
                 var invoiceAccount = db.tbl_Invoice.Where(x => x.Account_Id == id).FirstOrDefault();
             ViewBag.InvoiceAccount = invoiceAccount;
-                if (invoiceAccount == null)
+            if (invoiceAccount == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData["Message_Invoice_Error"] = "Nema te ni jedan racun";
+                return View();
             }
             return View();
             
@@ -81,13 +83,30 @@ namespace Online_Shop_Salon.Controllers.Admin
         #endregion
 
         #region Set Status Payment Admin Page
+        /// <summary>
+        /// Kada se setuje da je faktura placena, umanjujemo kolicinu za traj proizvod u magacinu
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult SetStatus(int id)
         {
+            
+            
             var invoice = db.tbl_Invoice.Find(id);
             if (invoice.Status == true ? invoice.Status = false : invoice.Status = true);
             db.SaveChanges();
+            var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
+            foreach(var quantityProduct in invoicesDetails)
+            {
+                var productId = db.tbl_Product.Where(x => x.Product_Id == quantityProduct.Product_Id).FirstOrDefault();
+                var qq=(productId.Quantity_Stock - quantityProduct.Quantity);
+
+                var quantityFromProduct = db.tbl_Product.Where(x => x.Product_Id == quantityProduct.Product_Id && x.StoreId == quantityProduct.Store_Id).FirstOrDefault();
+                quantityFromProduct.Quantity_Stock = qq;
+                db.SaveChanges();
+            }
             return RedirectToAction("Index", new { id = invoice.Invoice_Id });
         }
         #endregion

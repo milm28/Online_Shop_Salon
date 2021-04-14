@@ -20,8 +20,10 @@ namespace Online_Shop_Salon.Models
         public int Tax { get; set; }
         public decimal Total_Price_Tax { get; set; }
         public decimal Price_Per { get; set; }
+        public int Store_Id { get; set; }
     
         public virtual tbl_Invoice tbl_Invoice { get; set; }
         public virtual tbl_Product tbl_Product { get; set; }
+        public virtual tbl_Store tbl_Store { get; set; }
     }
 }

@@ -59,13 +59,15 @@
           <Key>
             <PropertyRef Name="Invoice_Id" />
             <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Store_Id" />
           </Key>
           <Property Name="Invoice_Id" Type="int" Nullable="false" />
           <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Store_Id" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Tax" Type="int" Nullable="false" />
-          <Property Name="Total_Price_Tax" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Price_Per" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total_Price_Tax" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Price_Per" Type="decimal" Precision="12" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Photo">
           <Key>
@@ -89,7 +91,7 @@
           <Property Name="Quantity_Stock" Type="int" Nullable="false" />
           <Property Name="StoreId" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
-          <Property Name="Status" Type="bit" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_Role">
           <Key>
@@ -164,6 +166,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_Invoice_Detail_tbl_Store">
+          <End Role="tbl_Store" Type="Self.tbl_Store" Multiplicity="1" />
+          <End Role="tbl_Invoice_Detail" Type="Self.tbl_Invoice_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Store">
+              <PropertyRef Name="Store_Id" />
+            </Principal>
+            <Dependent Role="tbl_Invoice_Detail">
+              <PropertyRef Name="Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_Invoice_tbl_Account">
           <End Role="tbl_Account" Type="Self.tbl_Account" Multiplicity="1" />
           <End Role="tbl_Invoice" Type="Self.tbl_Invoice" Multiplicity="*" />
@@ -213,6 +227,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Invoice_Detail_tbl_product_id" Association="Self.FK_tbl_Invoice_Detail_tbl_product_id">
             <End Role="tbl_Product" EntitySet="tbl_Product" />
+            <End Role="tbl_Invoice_Detail" EntitySet="tbl_Invoice_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Invoice_Detail_tbl_Store" Association="Self.FK_tbl_Invoice_Detail_tbl_Store">
+            <End Role="tbl_Store" EntitySet="tbl_Store" />
             <End Role="tbl_Invoice_Detail" EntitySet="tbl_Invoice_Detail" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_Invoice_tbl_Account" Association="Self.FK_tbl_Invoice_tbl_Account">
@@ -282,15 +300,18 @@
           <Key>
             <PropertyRef Name="Invoice_Id" />
             <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Store_Id" />
           </Key>
           <Property Name="Invoice_Id" Type="Int32" Nullable="false" />
           <Property Name="Product_Id" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Tax" Type="Int32" Nullable="false" />
-          <Property Name="Total_Price_Tax" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Price_Per" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total_Price_Tax" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Price_Per" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <NavigationProperty Name="tbl_Invoice" Relationship="Self.FK_tbl_Invoice_Detail_tbl_Invoice_Id" FromRole="tbl_Invoice_Detail" ToRole="tbl_Invoice" />
           <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Invoice_Detail_tbl_product_id" FromRole="tbl_Invoice_Detail" ToRole="tbl_Product" />
+          <Property Name="Store_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Store" Relationship="Online_shopModel.FK_tbl_Invoice_Detail_tbl_Store" FromRole="tbl_Invoice_Detail" ToRole="tbl_Store" />
         </EntityType>
         <EntityType Name="tbl_Photo">
           <Key>
@@ -315,7 +336,7 @@
           <Property Name="Quantity_Stock" Type="Int32" Nullable="false" />
           <Property Name="StoreId" Type="Int32" Nullable="false" />
           <Property Name="Category_Id" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tbl_Category" Relationship="Self.FK_tbl_Product_tbl_Category" FromRole="tbl_Product" ToRole="tbl_Category" />
           <NavigationProperty Name="tbl_Invoice_Detail" Relationship="Self.FK_tbl_Invoice_Detail_tbl_product_id" FromRole="tbl_Product" ToRole="tbl_Invoice_Detail" />
           <NavigationProperty Name="tbl_Photo" Relationship="Self.FK_tbl_Photo_tbl_Product" FromRole="tbl_Product" ToRole="tbl_Photo" />
@@ -347,6 +368,7 @@
           <Property Name="Bank_Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="tbl_Product" Relationship="Self.FK_tbl_Product_tbl_Store" FromRole="tbl_Store" ToRole="tbl_Product" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_Invoice_Detail" Relationship="Online_shopModel.FK_tbl_Invoice_Detail_tbl_Store" FromRole="tbl_Store" ToRole="tbl_Invoice_Detail" />
         </EntityType>
         <Association Name="FK_tbl_Account_tbl_Role">
           <End Role="tbl_Role" Type="Self.tbl_Role" Multiplicity="1" />
@@ -487,6 +509,10 @@
             <End Role="tbl_Product" EntitySet="tbl_Product" />
           </AssociationSet>
           <EntitySet Name="Logins" EntityType="Online_shopModel.Login" />
+          <AssociationSet Name="FK_tbl_Invoice_Detail_tbl_Store" Association="Online_shopModel.FK_tbl_Invoice_Detail_tbl_Store">
+            <End Role="tbl_Store" EntitySet="tbl_Store" />
+            <End Role="tbl_Invoice_Detail" EntitySet="tbl_Invoice_Detail" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Login">
           <Key>
@@ -495,6 +521,18 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_tbl_Invoice_Detail_tbl_Store">
+          <End Type="Online_shopModel.tbl_Store" Role="tbl_Store" Multiplicity="1" />
+          <End Type="Online_shopModel.tbl_Invoice_Detail" Role="tbl_Invoice_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Store">
+              <PropertyRef Name="Store_Id" />
+            </Principal>
+            <Dependent Role="tbl_Invoice_Detail">
+              <PropertyRef Name="Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -551,6 +589,7 @@
           <EntitySetMapping Name="tbl_Invoice_Detail">
             <EntityTypeMapping TypeName="Online_shopModel.tbl_Invoice_Detail">
               <MappingFragment StoreEntitySet="tbl_Invoice_Detail">
+                <ScalarProperty Name="Store_Id" ColumnName="Store_Id" />
                 <ScalarProperty Name="Invoice_Id" ColumnName="Invoice_Id" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />

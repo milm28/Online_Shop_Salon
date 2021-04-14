@@ -130,7 +130,8 @@
                                 }
                                 @if (@Request.Cookies["user_cookie_name"].Value != "admin")
                                 {
-                                    <a class="dropdown-item waves-effect waves-light" href="@Url.Action("ListInvoice", "Invoices",new { id = Request.Cookies["user_cookie_id"].Value.ToString() })">Računi</a>
+                                    <a class="dropdown-item waves-effect waves-light" 
+                                       href="@Url.Action("ListInvoice", "Invoices",new { id = Request.Cookies["user_cookie_id"].Value.ToString() })">Računi</a>
                                 }
                                 <a class="dropdown-item waves-effect waves-light" href="@Url.Action("Logout", "Login")">Logout</a>
 

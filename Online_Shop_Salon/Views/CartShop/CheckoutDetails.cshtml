@@ -31,11 +31,13 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="card-body">
-                    @{ int Total = 0;}
+                    @{ decimal Total = 0;}
                     @foreach (Item item in (List<Item>)Session["cart"])
                     {
-                        int lineTotal = Convert.ToInt32(item.Quantity * item.Product.Price_Per);
-                        Total = Convert.ToInt32(@Total + lineTotal);
+                        decimal lineTotal = Convert.ToDecimal(item.Quantity * item.Product.Price_Per);
+                        Total = Convert.ToDecimal(@Total + lineTotal);
+
+
 
                         tbl_Product product = (tbl_Product)item.Product;
                         var photo = product.tbl_Photo.SingleOrDefault(p => p.Main_Image == true);
@@ -68,32 +70,27 @@
                             </div>
 
                         </div>
-
                         <hr>
-                        
-
                     }
 
                     <div class="pull-right">
-                        <span>Ukupno za Naplatu:</span>  <b style="font:500;color:blue;">@Total Din.</b>
+                        <span>Cena bez PDV:</span>  <b style="font:500;color:blue;">@Total Din.</b>
+                    </div><br />
+                    <div class="pull-right">
+                        <span>Ukupan PDV(20%):</span>  <b style="font:500;color:blue;">@Convert.ToDecimal(@Total * (Convert.ToDecimal(0.2))).ToString("0.00") Din.</b>
                     </div>
                 </div>
                 <div class="card-footer">
-
-                    <div class="pull-right" style="margin: 10px">
-
-
-
+                    <div class="pull-right">
+                        <div class="pull-right">
+                            Cena sa PDV-om: <b style="font:500;color:blue;">@Convert.ToDecimal(@Total + (@Convert.ToDecimal(@Total * (Convert.ToDecimal(0.2))))).ToString("0.00")Din.</b>
+                        </div><br />
                         <button class="btn btn-success pull-right" type="submit">Naruči</button>
-
                     </div>
                 </div>
-
-
             </div>
         </form>
     }
-
 </div>
 
 

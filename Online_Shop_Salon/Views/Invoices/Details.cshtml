@@ -57,13 +57,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{ int Total = 0;
+                        @{ decimal Total = 0;
                             int i = 0;
                         }
                         @foreach (var item in ViewBag.InvoicesDetails)
                         {
-                            int lineTotal = Convert.ToInt32(item.Quantity * item.Price_Per);
-                            Total = Convert.ToInt32(@Total + lineTotal);
+                            decimal lineTotal = Convert.ToDecimal(item.Quantity * item.Price_Per);
+                            Total = Convert.ToDecimal(@Total + lineTotal);
                             i = i + 1;
                             <tr>
                                 <td class="no">@i</td>
@@ -74,7 +74,7 @@
                                 </td>
                                 <td class="unit">@item.Price_Per</td>
                                 <td class="qty">@item.Quantity</td>
-                                <td class="total">@Convert.ToInt32(@item.Price_Per * @item.Quantity)</td>
+                                <td class="total">@Convert.ToDecimal(@item.Price_Per * @item.Quantity)</td>
                             </tr>
                         }
 
@@ -88,12 +88,12 @@
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">PDV 20%</td>
-                            <td>@Convert.ToInt32(@Total * 0.2) Din.</td>
+                            <td>@Convert.ToDecimal(@Total * (Convert.ToDecimal(0.2))).ToString("0.00") Din.</td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">Ukupno za naplatu</td>
-                            <td>@Convert.ToInt32(@Total + (@Convert.ToInt32(@Total * 0.2)))Din.</td>
+                            <td>@Convert.ToDecimal(@Total + (@Convert.ToDecimal(@Total * (Convert.ToDecimal(0.2))))).ToString("0.00")Din.</td>
                         </tr>
                     </tfoot>
                 </table>

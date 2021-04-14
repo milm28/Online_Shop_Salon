@@ -11,15 +11,10 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Login
     {
-        [Display(Name = "Email")]
-        [Required(ErrorMessage = "Polje je obavezno")]
         public string Email { get; set; }
-        [Display(Name = "Password")]
-        [Required(ErrorMessage = "Polje je obavezno")]
         public string Password { get; set; }
     }
 }

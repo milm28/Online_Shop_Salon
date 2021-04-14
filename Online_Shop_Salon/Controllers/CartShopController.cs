@@ -29,7 +29,7 @@ namespace Online_Shop_Salon.Controllers
 
         #region AddtoCart product
         /// <summary>
-        /// using for add new product and increase product
+        /// using for add new product and increase product, this is a product ID in param
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -184,7 +184,7 @@ namespace Online_Shop_Salon.Controllers
             var customer = db.tbl_Account.FirstOrDefault(x => x.Account_Id == userId);
             if (userId != null && customer.Role_Id !=1)
             {
-                //cREATE INVOICE
+                //Kreiramo fakturu
                 var invoice = new tbl_Invoice()
                 {
 
@@ -195,7 +195,7 @@ namespace Online_Shop_Salon.Controllers
                 db.tbl_Invoice.Add(invoice);
                 db.SaveChanges();
 
-                //invoice details
+                //Detalji Fakture
                 
                 foreach (Item item in (List<Item>)Session["cart"])
                 {
@@ -203,8 +203,8 @@ namespace Online_Shop_Salon.Controllers
                     {
                         Invoice_Id = invoice.Invoice_Id,
                         Product_Id = item.Product.Product_Id,
+                        Store_Id = item.Product.StoreId,
                         Quantity = item.Quantity,
-
                         Tax = 20,
                         Price_Per = item.Product.Price_Per,
                         Total_Price_Tax = item.Product.Price_Per * item.Quantity

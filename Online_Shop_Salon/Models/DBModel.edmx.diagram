@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d4e146fe69284b3eb8474e6693794734" Name="Diagram1">
-        <EntityTypeShape EntityType="Online_shopModel.SlideShow" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Online_shopModel.SlideShow" Width="1.5" PointX="7.625" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Online_shopModel.tbl_Account" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Online_shopModel.tbl_Category" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Online_shopModel.tbl_Invoice" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
@@ -23,6 +23,7 @@
         <AssociationConnector Association="Online_shopModel.FK_tbl_Photo_tbl_Product" ManuallyRouted="false" />
         <AssociationConnector Association="Online_shopModel.FK_tbl_Product_tbl_Store" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Online_shopModel.Login" Width="1.5" PointX="7.375" PointY="3.75" />
+        <AssociationConnector Association="Online_shopModel.FK_tbl_Invoice_Detail_tbl_Store" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

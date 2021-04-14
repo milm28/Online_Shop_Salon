@@ -27,11 +27,13 @@ namespace Online_Shop_Salon.Controllers
         [HttpPost]
         public ActionResult Register(tbl_Account user)
         {
-            var check = db.tbl_Account.FirstOrDefault(s => s.Email == user.Email);
+            var check = db.tbl_Account.FirstOrDefault(s => s.Email == user.Email && s.UserName == user.UserName);
             if (check == null)
             {
+
                 user.Role_Id = 2;
                 user.Status = true;
+                user.Password = Encode(user.Password);
                 db.tbl_Account.Add(user);
                 db.SaveChanges();
                 ModelState.Clear();
@@ -58,8 +60,9 @@ namespace Online_Shop_Salon.Controllers
         [HttpPost]
         public ActionResult Login(Login login)
         {
-  
-            var user = db.tbl_Account.Where(a => a.Email == login.Email && a.Password == login.Password && a.Status!=false).FirstOrDefault();
+            
+            var passEncrypt= Encode(login.Password);
+            var user = db.tbl_Account.Where(a => a.Email == login.Email && a.Password == passEncrypt && a.Status!=false).FirstOrDefault();
 
             if (user != null)
             {
@@ -102,7 +105,25 @@ namespace Online_Shop_Salon.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
-        
+
+        #region Encoding password
+        public string Encode(string password)
+        {
+            try
+            {
+                byte[] EncDataByte = new byte[password.Length];
+                EncDataByte = System.Text.Encoding.UTF8.GetBytes(password);
+                string EncryptedData = Convert.ToBase64String(EncDataByte);
+                return EncryptedData;
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception ("Error in Encode:" + ex.Message);
+            }
+        }
+        #endregion
+
     }
 
 }

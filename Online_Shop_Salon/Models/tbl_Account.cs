@@ -22,7 +22,6 @@ namespace Online_Shop_Salon.Models
         }
     
         public int Account_Id { get; set; }
-
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Korisnicko Ime")]
         [StringLength(50, MinimumLength = 3)]
@@ -30,7 +29,7 @@ namespace Online_Shop_Salon.Models
 
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Password")]
-        
+
         [StringLength(50, MinimumLength = 3)]
         public string Password { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
@@ -56,7 +55,7 @@ namespace Online_Shop_Salon.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
         public bool Status { get; set; }
-    
+
         public virtual tbl_Role tbl_Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Invoice> tbl_Invoice { get; set; }

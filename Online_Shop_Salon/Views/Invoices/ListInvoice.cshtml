@@ -8,9 +8,20 @@
         text-align: center !important;
     }
 </style>
-
+@if (TempData["Message_Invoice_Error"] != null)
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong> @TempData["Message_Invoice_Error"]</strong>
+            </div>
+        </div>
+    </div>
+}
+else { 
 @* Provera za priloskom ulaska u fakture, korisnik samo moze svoje fakture da vidi *@
-@if (ViewBag.InvoiceAccount.Account_Id != null)
+if (ViewBag.InvoiceAccount.Account_Id != null)
 {
     if (ViewBag.InvoiceAccount.Account_Id.ToString() == Request.Cookies["user_cookie_id"].Value)
     {
@@ -20,7 +31,7 @@
                     <th>Broj Fakture</th>
                     <th width="5%">Status Placanja</th>
                     <th>Kupac</th>
-                    <th>Datum Kupovine</th>
+                    <th width="15%">Datum Kupovine</th>
                     <th width="5%">Detaljnije</th>
                 </tr>
             </thead>
@@ -60,6 +71,11 @@
         <h1>Nemate mogucnost da vidite fakture prccc!</h1>
     }
 }
+
+
+
+}
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css">
 
@@ -72,6 +88,7 @@
             $('#tableInvoice').DataTable({
                 'paging': true,
                 'langthChange': false,
+                'columnDefs': [{ orderable: false, targets: [4] }],
                 "order": [[0, "desc"]]
             });
         });

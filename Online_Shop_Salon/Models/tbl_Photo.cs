@@ -16,9 +16,7 @@ namespace Online_Shop_Salon.Models
     public partial class tbl_Photo
     {
         public int Image_Id { get; set; }
-
         [Display(Name = "Slika")]
-      
         public string Image_Name { get; set; }
         public bool Status { get; set; }
         public int Product_Id { get; set; }

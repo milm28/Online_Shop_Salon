@@ -21,10 +21,10 @@ namespace Online_Shop_Salon.Models
             this.tbl_Invoice_Detail = new HashSet<tbl_Invoice_Detail>();
             this.tbl_Photo = new HashSet<tbl_Photo>();
         }
-    
+
         public int Product_Id { get; set; }
         [Display(Name = "Ime Proizvda")]
-        [Required(ErrorMessage ="Polje je obavezno")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         [StringLength(150)]
         [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
         public string Product_Name { get; set; }
@@ -36,14 +36,14 @@ namespace Online_Shop_Salon.Models
 
         [Display(Name = "Godina Proizvodnje")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(4,ErrorMessage ="Unosimo samo godinu yyyy!")]
+        [StringLength(4, ErrorMessage = "Unosimo samo godinu yyyy!")]
         public string Made_Year { get; set; }
 
         [Display(Name = "Cena po Komadu")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [Range(0.0, 1000000,ErrorMessage ="Cena ne moze da bude preko 1000000.00!")]
+        [Range(0.0, 1000000, ErrorMessage = "Cena ne moze da bude preko 1000000.00!")]
         [DataType(DataType.Currency)]
-        
+
         public decimal Price_Per { get; set; }
 
         [Display(Name = "Kolicina u salonu")]
@@ -60,7 +60,7 @@ namespace Online_Shop_Salon.Models
         public int Category_Id { get; set; }
         [Display(Name = "Status")]
         public bool Status { get; set; }
-      
+
         public virtual tbl_Category tbl_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Invoice_Detail> tbl_Invoice_Detail { get; set; }

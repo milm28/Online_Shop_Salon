@@ -19,8 +19,9 @@ namespace Online_Shop_Salon.Models
         public tbl_Store()
         {
             this.tbl_Product = new HashSet<tbl_Product>();
+            this.tbl_Invoice_Detail = new HashSet<tbl_Invoice_Detail>();
         }
-      
+    
         public int Store_Id { get; set; }
         [Display(Name = "Ime Salona")]
         [Required(ErrorMessage = "Polje je obavezno")]
@@ -57,7 +58,7 @@ namespace Online_Shop_Salon.Models
         public string Web_Site { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "PIB")]
-        [StringLength(8,ErrorMessage ="Pib sadrzi 8 cifara!")]
+        [StringLength(8, ErrorMessage = "Pib sadrzi 8 cifara!")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "UPRN must be numeric")]
         public string PIB { get; set; }
 
@@ -67,8 +68,10 @@ namespace Online_Shop_Salon.Models
         [RegularExpression("^[0-9]*$", ErrorMessage = "Morate uneti brojeve")]
         public string Bank_Account { get; set; }
         public bool Status { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Product> tbl_Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Invoice_Detail> tbl_Invoice_Detail { get; set; }
     }
 }

@@ -102,7 +102,7 @@ namespace Online_Shop_Salon.Controllers.Admin
 
         #region OffLine status Store
         /// <summary>
-        /// Delete SlideShow Image from dataBase
+        /// Offline store
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

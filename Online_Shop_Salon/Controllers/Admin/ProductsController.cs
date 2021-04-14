@@ -19,6 +19,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         public ActionResult Index()
         {
             ViewBag.Products = db.tbl_Product.ToList();
+            
             return View();
         }
         #endregion
@@ -101,10 +102,10 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 return HttpNotFound();
             }
-            var category_id = db.tbl_Category.Where(x => x.ParentId != null);
+            var category_id = db.tbl_Category.Where(x => x.ParentId != null && x.Status == true);
             var Category_Id = new SelectList(category_id, "Category_Id", "Category_Name", tbl_Product.Category_Id);
             ViewBag.Category_Id = Category_Id;
-            ViewBag.StoreId = new SelectList(db.tbl_Store, "Store_Id", "Store_Name", tbl_Product.StoreId);
+            ViewBag.StoreId = new SelectList(db.tbl_Store.Where(x=>x.Status == true), "Store_Id", "Store_Name", tbl_Product.StoreId);
             return View(tbl_Product);
         }
 
@@ -190,6 +191,7 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 //viewbag za dropdown iz navbar-a
                 ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+                ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
                 //var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword) || p.tbl_Category.Category_Name.Contains(keyword) && (p.Status != false && p.tbl_Category.Status != null)).ToList();
                 var products = db.tbl_Product.Where(p => p.Product_Name.Contains(keyword)&& p.Status != false).ToList();
                 var categoriesSearch = db.tbl_Category.Where(c => c.Category_Name.Contains(keyword)).ToList();

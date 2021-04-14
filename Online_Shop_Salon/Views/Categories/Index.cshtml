@@ -6,8 +6,8 @@
 }
 
 <style>
-   th {
-        text-align:center!important;
+    th {
+        text-align: center !important;
     }
 </style>
 
@@ -18,10 +18,10 @@
     <thead>
         <tr>
             <!--th width="5%">ID</th-->
-            <th>Name</th>
-            <th>Perent</th>
+            <th width="35%">Kategorija/Podkategorija</th>
+            <th width="20%">Kategorija</th>
             <th width="5%">Status</th>
-            <th>Tools</th>
+            <th width="10%">Tools</th>
 
         </tr>
     </thead>
@@ -29,7 +29,7 @@
         @foreach (var item in ViewBag.categories)
         {
             <tr>
-                <!--td>@item.Category_Id</td-->
+
                 <td style="text-align:left"><b>@item.Category_Name</b></td>
                 <td>@(item.ParentId == null ? "" : item.tbl_Category2.Category_Name)</td>
                 <td>
@@ -60,7 +60,7 @@
                 foreach (var item2 in item.tbl_Category1)
                 {
                     <tr>
-                        <!--td>@item2.Category_Id</td-->
+
                         <td>@item2.Category_Name</td>
                         <td>@(item2.ParentId == null ? "" : item2.tbl_Category2.Category_Name)</td>
                         <td>
@@ -94,7 +94,6 @@
 
 </table>
 
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css">
 
@@ -106,9 +105,11 @@
         $(document).ready(function () {
             $('#tableCategories').DataTable({
                 'paging': true,
-                'columnDefs': [{ orderable: false, targets: [4] }],
-                'langthChange': false
-                //"order": [[0, "desc"]]
+                'langthChange': false,
+                'columnDefs': [{ orderable: false, targets: [0,1,2,3] }],
+                //'order': [[0, "desc"]]
+                'order': false,
+                'scrollX': true
             });
         });
 
@@ -116,4 +117,5 @@
     </script>
 
 }
+
 
