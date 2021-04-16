@@ -46,6 +46,34 @@
     border-bottom: none
 }
 
+/*search navbar*/
+#keyword {
+    color: white;
+    background: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: orange;
+    text-align: center;
+    border-radius:0;
+    padding:3px;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #ffa5009e !important;
+}
+
+/*style dropdown*/
+
+.dropdown-menu :hover {
+    background-color: orange;
+    color: white;
+}
+
+.disable {
+    pointer-events: none;
+    cursor: default;
+}
+
 .card {
     border: none
 }
@@ -331,19 +359,78 @@ textarea {
     right: 8px;
     background-color:orange;
 }
-/*End icon style*/
 
-/*Shoping cart Page*/
-.quantity {
-    /*float: left;*/
-    margin-right: 15px;
-    /* background-color: #eee;*/
-    position: relative;
-    width: 80px;
-    overflow: hidden;
-    display: list-item;
-    text-align: left;
+.dropdown {
+    float: right;
+    padding-right: 30px;
 }
+
+.dropdown .dropdown-menu {
+    padding: 20px;
+    top: 30px !important;
+    width: 350px !important;
+    left: -110px !important;
+    box-shadow: 0px 5px 30px black;
+}
+
+.total-section p {
+    margin-bottom: 20px;
+}
+
+.cart-detail {
+    padding: 15px 0px;
+}
+
+.cart-detail-img img {
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+}
+
+.cart-detail-product p {
+    margin: 0px;
+    color: #000;
+    font-weight: 500;
+}
+
+.cart-detail .price {
+    font-size: 12px;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.checkout {
+    border-top: 1px solid #d2d2d2;
+    padding-top: 15px;
+  
+
+}
+.checkout-hover :hover{
+    background-color:white!important;
+    color:orange;
+    
+}
+#sss {
+    background-color: transparent;
+    color: black;
+}
+
+.sss :hover {
+    background-color: black;
+    color: black;
+}
+    /*End icon style*/
+    /*Shoping cart Page*/
+    .quantity {
+        /*float: left;*/
+        margin-right: 15px;
+        /* background-color: #eee;*/
+        position: relative;
+        width: 80px;
+        overflow: hidden;
+        display: list-item;
+        text-align: left;
+    }
 
     .quantity input {
         margin: 0;
@@ -391,13 +478,13 @@ textarea {
         z-index: 3
     }
 
-        .quantity .minus:hover, .quantity .plus:hover {
-            background-color: #dad8da
-        }
+.quantity .minus:hover, .quantity .plus:hover {
+    background-color: #dad8da
+}
 
-    .quantity .minus {
-        bottom: 0
-    }
+.quantity .minus {
+    bottom: 0
+}
 
 .shopping-cart {
     margin-top: 20px;

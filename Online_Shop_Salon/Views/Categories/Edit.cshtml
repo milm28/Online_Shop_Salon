@@ -36,6 +36,7 @@
                                     <div class="form-row justify-content-center">
                                         <div class="form-group col-md-6">
                                             @Html.LabelFor(model => model.Category_Name, htmlAttributes: new { @class = "control-label" })
+                                            
                                             @Html.EditorFor(model => model.Category_Name, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Category_Name, "", new { @class = "text-danger" })
                                         </div>
@@ -43,7 +44,7 @@
                                     <div class="form-row justify-content-center">
                                         <div class="form-group col-md-6">
                                             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
-                                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.TextAreaFor(model => model.Description, 5, 40, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

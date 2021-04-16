@@ -176,10 +176,50 @@ namespace Online_Shop_Salon.Controllers.Admin
                 }
                 else
                 {
-                    TempData["Message_Error"] = "Kategorija ili Podkategorija postoje u Bazi!";
+                    TempData["Message_Error"] = "Kategorija/Podkategorija postoje u Bazi!";
                     return View(subcategory);
                 }
             }
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region Edit Sub Category Admin Panel
+        [HttpGet]
+        public ActionResult EditSubCategory(int id)
+        {
+            var subcategory = db.tbl_Category.Find(id);
+            return View("EditSubCategory", subcategory);
+        }
+
+        [HttpPost]
+
+        public ActionResult EditSubCategory(int id, tbl_Category subcategory)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentCategory = db.tbl_Category.Find(id);
+                if (subcategory.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(subcategory.ImageFile.FileName);
+                    string extension = Path.GetExtension(subcategory.ImageFile.FileName);   // dodali smo u model tbl_CAtegory property ImageFile za input name
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    subcategory.Category_Image = "/content/img/kategorije/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/content/img/kategorije/"), fileName);
+                    subcategory.ImageFile.SaveAs(fileName);
+                    currentCategory.Category_Image = subcategory.Category_Image;
+                }
+
+
+                currentCategory.Category_Name = subcategory.Category_Name;
+                currentCategory.Description = subcategory.Description;
+                currentCategory.Status = subcategory.Status;
+
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+
             return RedirectToAction("Index");
         }
         #endregion

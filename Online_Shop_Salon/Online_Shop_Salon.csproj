@@ -311,6 +311,7 @@
     <Compile Include="Controllers\Admin\InvoicesController.cs" />
     <Compile Include="Controllers\Admin\PhotosController.cs" />
     <Compile Include="Controllers\Admin\ProductsController.cs" />
+    <Compile Include="Controllers\Admin\ReportsController.cs" />
     <Compile Include="Controllers\Admin\SlideShowsController.cs" />
     <Compile Include="Controllers\Admin\StoresController.cs" />
     <Compile Include="Controllers\CartShopController.cs" />
@@ -603,6 +604,8 @@
     <Content Include="Views\Invoices\InvoiceDetailsUser.cshtml" />
     <Content Include="Views\Stores\Details.cshtml" />
     <Content Include="Views\Products\ProductDetailsFromStore.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Categories\EditSubCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

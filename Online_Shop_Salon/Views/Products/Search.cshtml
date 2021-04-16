@@ -70,7 +70,7 @@
                                 </div>
                             }
                         }
-                        @if(@ViewBag.CategoriesSearch.Count == 0)
+                        @if(@ViewBag.CategoriesSearch.Count == 0 && ViewBag.Products.Count == 0)
                         {
                             <i>Nažalost, proizvod ne postoji u Bazi!</i>
                         }

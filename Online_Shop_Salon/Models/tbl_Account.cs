@@ -24,7 +24,7 @@ namespace Online_Shop_Salon.Models
         public int Account_Id { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Korisnicko Ime")]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3,ErrorMessage ="Polje mora da sedrzi min 3 karkatera, ne vise od 50")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Polje je obavezno")]
@@ -40,8 +40,9 @@ namespace Online_Shop_Salon.Models
         [Display(Name = "Prezime")]
         [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
-        [Required(ErrorMessage = "Polje je obavezno")]
+        
         [Display(Name = "Role")]
+        [Required(ErrorMessage = "Polje je obavezno")]
         public int Role_Id { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Grad")]

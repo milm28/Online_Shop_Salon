@@ -1,7 +1,7 @@
 ﻿@model Online_Shop_Salon.Models.tbl_Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Dodaj Proizvod";
     Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -105,7 +105,15 @@
                                 @Html.DropDownList("Category_Id", null, htmlAttributes: new { @class = "form-control", required = String.Empty }, optionLabel: "Izaberi Kategoriju")
                                 @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
                             </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label" } })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-6 ">
                                 <div class="col-md-12">

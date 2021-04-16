@@ -11,7 +11,8 @@ namespace Online_Shop_Salon.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tbl_Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,7 @@ namespace Online_Shop_Salon.Models
         }
     
         public int Role_Id { get; set; }
+        [Required(ErrorMessage = "Polje je obavezno")]
         public string Role_Name { get; set; }
         public Nullable<bool> Status { get; set; }
     

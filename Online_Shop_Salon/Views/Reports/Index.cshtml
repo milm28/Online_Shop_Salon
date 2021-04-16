@@ -1,0 +1,193 @@
+﻿@model Online_Shop_Salon.Models.tbl_Invoice_Detail
+@{
+    ViewBag.Title = "Izveštaj Prodaje";
+    Layout = "~/Views/Shared/_Admin_Leyout.cshtml";
+}
+<style>
+    th {
+        text-align: center !important;
+    }
+</style>
+<table border="0" cellspacing="5" cellpadding="5" style="position:relative;top:-32px;">
+    <tbody>
+        <tr>
+            <td>Period od:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Period do:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+    </tbody>
+</table>
+<table id="example" class="display nowrap uk-table uk-table-hover uk-table-striped" style="width:100%;text-align:center;">
+    <thead>
+        <tr>
+           
+            <th>Salon</th>
+            <th>Proizvod</th>
+            <th>Kategorija</th>
+            <th>Datum Fakturisanja</th>
+            <th>Cena</th>
+            <th>Količina</th>
+            <th>Ukupan Iznos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ decimal Total = 0;
+            //int i = 0;
+        }
+        @foreach (var item in ViewBag.AllReportStores)
+        {
+            decimal lineTotal = Convert.ToDecimal(item.Quantity * item.Price_Per);
+            Total = Convert.ToDecimal(@Total + lineTotal);
+            //i = i + 1;
+            <tr>
+                @*<td>@i</td>*@
+                <td>@item.tbl_Store.Store_Name</td>
+                <td>@item.tbl_Product.Product_Name</td>
+                <td>@item.tbl_Product.tbl_Category.Category_Name</td>
+                <td>@item.tbl_Invoice.Created.ToString("yyyy/MM/dd")</td>
+                <td>@item.tbl_Product.Price_Per</td>
+                <td>@item.Quantity</td>
+                <td>@Convert.ToDecimal(@item.tbl_Product.Price_Per * @item.Quantity)</td>
+
+            </tr>
+
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.uikit.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.0.3/css/dataTables.dateTime.min.css">
+
+
+@section scripts{
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.uikit.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
+
+    <script>
+        
+
+        var minDate, maxDate;
+
+        // Custom filtering function which will search data in column four between two values
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = minDate.val();
+                var max = maxDate.val();
+                var date = new Date(data[3]);
+
+                if (
+                    (min === null && max === null) ||
+                    (min === null && date <= max) ||
+                    (min <= date && max === null) ||
+                    (min <= date && date <= max)
+                ) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+          
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+            // DataTables initialisation
+            var table = $('#example').DataTable({
+                "ordering": false,
+                'scrollX': true,
+                initComplete: function () {
+                    this.api().columns([2]).every(function () {
+                        var column = this;
+                        var select = $('<select><option value="">Kategorije</option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                },
+
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            //i.replace(/[\$,]/g, '') * 1 :
+                            i.replace(',', '').replace(/[\$,]/g, ',') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(6)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(6, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(5).footer()).html(
+                        'Ukupan Iznos:'
+                    );
+                    $(api.column(6).footer()).html(
+                        '' + pageTotal.toFixed(2)+ ' Din.' + ' ( ' + total.toFixed(2) + ' Din.)'
+                    );
+                }
+               
+                    
+            });
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
+           
+            
+            
+        });
+        
+    </script>
+    }

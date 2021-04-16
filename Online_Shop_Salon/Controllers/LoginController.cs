@@ -93,7 +93,7 @@ namespace Online_Shop_Salon.Controllers
                             //return Redirect(Request.UrlReferrer.ToString());
                 }
             }
-            TempData["Message_Login_Error"] = "Kupac ne postoji u bazi!";
+            TempData["Message_Login_Error"] = "Email ne postoji u Bazi!";
             return RedirectToAction("Login", "Login");
         }
         #endregion
@@ -107,6 +107,11 @@ namespace Online_Shop_Salon.Controllers
         #endregion
 
         #region Encoding password
+        /// <summary>
+        /// encoding za registraciju i logovanje 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public string Encode(string password)
         {
             try

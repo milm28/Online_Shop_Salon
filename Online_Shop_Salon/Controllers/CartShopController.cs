@@ -36,8 +36,11 @@ namespace Online_Shop_Salon.Controllers
         [HttpGet]
         public ActionResult AddToCart(int id)
         {
+            var validateQuantityProduct = db.tbl_Product.Where(q => q.Product_Id == id && q.Status == true).FirstOrDefault();
+
             if (Session["cart"] == null)
             {
+                
                 List<Item> cart = new List<Item>();
                 var product = db.tbl_Product.Find(id);
                 cart.Add(new Item()
@@ -53,7 +56,8 @@ namespace Online_Shop_Salon.Controllers
             else
             {
                 List<Item> cart = (List<Item>)Session["cart"];
-                var product = db.tbl_Product.Find(id);
+
+                 var product = db.tbl_Product.Find(id);
                 List<int> addedItems = new List<int>();
 
                 foreach (var item in cart)
@@ -62,35 +66,50 @@ namespace Online_Shop_Salon.Controllers
                 }
                 foreach (var item in cart.ToList())
                 {
-                    if (item.Product.Product_Id == id)
-                    {
-                        int prevQty = item.Quantity;
-                        cart.Remove(item);
-                        cart.Add(new Item()
-                        {
-                            Product = product,
-                            Quantity = (prevQty + 1)
-                        });
+                    ///TempData["Message_Quantity_Product_Error"] = "Trenutno nemamo više proizvoda na stanju!";
+                    ///Provera kolicine u bazi tj.magacinu za odredjeni proizvod, ako je kolicina iz cart veca od kolicine iz magacina ide break; 
+                    
                         
-                        Session["cart"] = cart.OrderBy(s => s.Product.Product_Name).ToList();
-                    }
-                    else
-                    {
-                        if (addedItems.Contains(id))
+                        if (item.Product.Product_Id == id)
                         {
-
+                            if (item.Quantity < product.Quantity_Stock)
+                            {
+                                int prevQty = item.Quantity;
+                                cart.Remove(item);
+                                cart.Add(new Item()
+                                {
+                                    Product = product,
+                                    Quantity = (prevQty + 1)
+                                });
+                            }
+                            else
+                            {
+                                TempData["Message_Quantity_Product_Error"] = "Trenutno nemamo više proizvoda na stanju!";
+                            }
+                            Session["cart"] = cart.OrderBy(s => s.Product.Product_Name).ToList();
                         }
                         else
                         {
-                            cart.Add(new Item()
+                        
+                            if (addedItems.Contains(id))
                             {
-                                Product = product,
-                                Quantity = 1
-                            });
-                            Session["cart"] = cart;
-                            break;
-                        } 
-                    }
+
+                            }
+                            else
+                            {
+                               
+                                    cart.Add(new Item()
+                                    {
+                                        Product = product,
+                                        Quantity = 1
+                                    });
+                                    Session["cart"] = cart;
+                                    break;
+                                
+                            }
+                        
+                        }
+                    
                 }
                 //return RedirectToAction("../Products/Details/", new { id = id });
                 return Redirect(Request.UrlReferrer.ToString());

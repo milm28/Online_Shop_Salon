@@ -65,7 +65,7 @@ namespace Online_Shop_Salon.Models
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Bankovni Racun")]
         [StringLength(18, ErrorMessage = "bankovni racun sadrzi 18 cifara!")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Morate uneti brojeve")]
+        [RegularExpression("^[0-9]{3}-[0-9]{3}$", ErrorMessage = "Morate uneti brojeve")]
         public string Bank_Account { get; set; }
         public bool Status { get; set; }
 

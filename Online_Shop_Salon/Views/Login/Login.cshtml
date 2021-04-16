@@ -47,19 +47,19 @@
                             </div>
                         </div>
                     }
+                    <a href="/">
+                        <button type="button" class="close" aria-label="Close" style="color:black;font-size:34px;top:9px;position:absolute;right:12px;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
                     <h1 class="mb-0">Login</h1>
                     <p>Unesite Podatke za logovanje</p>
                     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "font-weight-bold mb-0" })
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "mb-4" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-
-
                     @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "font-weight-bold mb-0" })
-
                     @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "mb-4" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-
-                    @Html.ActionLink("Back", "../", null, new { @class = "text-sm ml-auto text-dim" })
                     <div class="row justify-content-center mt-4">
                         <button type="submit" class="btn btn-yellow px-5">Login</button>
                     </div>

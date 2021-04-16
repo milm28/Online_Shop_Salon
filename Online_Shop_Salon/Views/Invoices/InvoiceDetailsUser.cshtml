@@ -5,9 +5,13 @@
 }
 <link href="~/Content/Admin/Admin.css" rel="stylesheet" />
 
+@* validacija za pristup racunima, moze da pristupi onaj samo cijji je racun! *@
+@if (ViewBag.CheckUserInvoice.tbl_Account.Account_Id != null)
+{
+    if (ViewBag.CheckUserInvoice.tbl_Account.Account_Id.ToString() == Request.Cookies["user_cookie_id"].Value)
+    {
 <div id="invoice">
-
-
+    @Html.ActionLink(" Nazad", "ListInvoice", "Invoices",new { id= Request.Cookies["user_cookie_id"].Value }, new { @class = "btn btn-sm btn-info fa fa-step-backward fa-sm" })
     <div class="invoice overflow-auto">
         <div style="min-width: 600px">
             <header>
@@ -110,5 +114,11 @@
 
         <div></div>
     </div>
-</div>
 
+</div>
+    }
+    else
+    {
+        <h2>Nemate Fakturu sa tim Brojem!</h2>
+    }
+}

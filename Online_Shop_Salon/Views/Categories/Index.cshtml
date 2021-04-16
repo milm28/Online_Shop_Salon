@@ -78,7 +78,7 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink(" ", "Edit", new { id = item2.Category_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" })
+                            @Html.ActionLink(" ", "EditSubCategory", new { id = item2.Category_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" })
                             @if (item2.tbl_Product.Count == 0)
                             {
                                 @Html.ActionLink(" ", "Delete", new { id = item2.Category_Id }, new { @class = "btn btn-sm btn-danger fa fa-trash fa-lg", @onclick = "return confirm('Da li zelite da izbrisete PodKategoriju?');" })

@@ -23,7 +23,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         }
         #endregion
 
-        #region Crate New User or Admin from Admin ControlPanel
+        #region Create New User or Admin from Admin ControlPanel
         public ActionResult Create()
         {
             ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name");
@@ -37,6 +37,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                tbl_Account.Password = Encode(tbl_Account.Password);
                 db.tbl_Account.Add(tbl_Account);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -54,12 +55,13 @@ namespace Online_Shop_Salon.Controllers.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             tbl_Account tbl_Account = db.tbl_Account.Find(id);
             if (tbl_Account == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.password=tbl_Account.Password;
+          
             ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name", tbl_Account.Role_Id);
             return View(tbl_Account);
         }
@@ -71,6 +73,7 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                tbl_Account.Password = Encode(tbl_Account.Password);
                 db.Entry(tbl_Account).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,6 +83,31 @@ namespace Online_Shop_Salon.Controllers.Admin
         }
 
         #endregion
+
+        #region Encoding password
+        /// <summary>
+        /// encoding za registraciju i logovanje 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string Encode(string password)
+        {
+            try
+            {
+                byte[] EncDataByte = new byte[password.Length];
+                EncDataByte = System.Text.Encoding.UTF8.GetBytes(password);
+                string EncryptedData = Convert.ToBase64String(EncDataByte);
+                return EncryptedData;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in Encode:" + ex.Message);
+            }
+        }
+        #endregion
+
+
 
     }
 }

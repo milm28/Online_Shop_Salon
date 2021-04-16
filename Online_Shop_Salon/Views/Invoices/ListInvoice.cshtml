@@ -46,13 +46,13 @@ if (ViewBag.InvoiceAccount.Account_Id != null)
                             @if (item.Status == true)
                             {
                                 <div class="col-sm-9 text-secondary">
-                                    <div class="badge badge-success badge-success-alt">Online</div>
+                                    <div class="badge badge-success badge-success-alt">Plaćeno</div>
                                 </div>
                             }
                             else
                             {
                                 <div class="col-sm-9 text-secondary">
-                                    <div class="badge badge-danger badge-danger-alt">Offline</div>
+                                    <div class="badge badge-danger badge-danger-alt">Nije Plaćeno</div>
                                 </div>
                             }
                         </td>
@@ -89,7 +89,8 @@ if (ViewBag.InvoiceAccount.Account_Id != null)
                 'paging': true,
                 'langthChange': false,
                 'columnDefs': [{ orderable: false, targets: [4] }],
-                "order": [[0, "desc"]]
+                "order": [[0, "desc"]],
+                'scrollX': true
             });
         });
 

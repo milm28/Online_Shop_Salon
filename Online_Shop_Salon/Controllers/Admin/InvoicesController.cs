@@ -26,6 +26,11 @@ namespace Online_Shop_Salon.Controllers.Admin
         #endregion
 
         #region List Invoice for user page
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">ulogovanog kupca</param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles="User")]
         public ActionResult ListInvoice(int id)
@@ -35,12 +40,12 @@ namespace Online_Shop_Salon.Controllers.Admin
             ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
             //ViewBag.Invoices = db.tbl_Invoice.Include(t => t.tbl_Account).ToList();
             ViewBag.Invoices = db.tbl_Invoice.Where(x => x.Account_Id == id).ToList();
-                var invoiceAccount = db.tbl_Invoice.Where(x => x.Account_Id == id).FirstOrDefault();
+            var invoiceAccount = db.tbl_Invoice.Where(x => x.Account_Id == id).FirstOrDefault();
             ViewBag.InvoiceAccount = invoiceAccount;
             if (invoiceAccount == null)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                TempData["Message_Invoice_Error"] = "Nema te ni jedan racun";
+                TempData["Message_Invoice_Error"] = "Nemate ni jedan racun";
                 return View();
             }
             return View();
@@ -49,20 +54,33 @@ namespace Online_Shop_Salon.Controllers.Admin
         #endregion
 
         #region Details for Invoice user page
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Id fakture</param>
+        /// <returns></returns>
         [Authorize(Roles = "User")]
+        [HttpGet]
         public ActionResult InvoiceDetailsUser(int? id)
         {
-            if (id == null)
+            var checkUserInvoice = db.tbl_Invoice.Where(u => u.Invoice_Id == id).ToList();
+            if (id == null || checkUserInvoice.Count == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            else
+            {
+                ViewBag.CheckUserInvoice = checkUserInvoice.FirstOrDefault();
+                ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
+                ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+                ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
+                var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
+                ViewBag.InvoicesDetails = invoicesDetails;
+              
+                return View("InvoiceDetailsUser");
+            }
            
-            ViewBag.InvoiceData = db.tbl_Invoice_Detail.Where(d => d.Invoice_Id == id).FirstOrDefault();
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true ).ToList();
-            ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
-            var invoicesDetails = db.tbl_Invoice_Detail.Where(i => i.Invoice_Id == id).ToList();
-            ViewBag.InvoicesDetails = invoicesDetails;
-            return View("InvoiceDetailsUser");
+            
         }
         #endregion
 

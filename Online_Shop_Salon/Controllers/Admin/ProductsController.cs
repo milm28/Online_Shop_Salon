@@ -57,7 +57,7 @@ namespace Online_Shop_Salon.Controllers.Admin
                 if (valNewProduct == null)
                 {
 
-                    tbl_Product.Status = false;
+                    //tbl_Product.Status = false;
                     db.tbl_Product.Add(tbl_Product);
                     db.SaveChanges();
 
@@ -172,9 +172,9 @@ namespace Online_Shop_Salon.Controllers.Admin
         #region ProductDetails for User Page
         public ActionResult ProductDetails(int id)
         {
-            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status == true).ToList();
+            ViewBag.categories = db.tbl_Category.Where(x => x.ParentId == null && x.Status).ToList();
             ViewBag.SalonsList = db.tbl_Store.Where(x => x.Status == true).ToList();
-            var product = db.tbl_Product.Where(x => x.Category_Id == id && x.Status==true).ToList();
+            var product = db.tbl_Product.Where(x => x.Category_Id == id && x.Status==true && x.Quantity_Stock > 0).ToList();
 
             ViewBag.Products = product;
 
