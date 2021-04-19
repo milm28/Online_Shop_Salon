@@ -27,45 +27,55 @@ namespace Online_Shop_Salon.Models
         [Required(ErrorMessage = "Polje je obavezno")]
         [StringLength(50)]
         public string Store_Name { get; set; }
+
         [Display(Name = "Ime Vlasnika")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(50)]
+        [StringLength(50,ErrorMessage = "Unesite maximum je 50 karaktera!")]
         public string Owner_Name { get; set; }
+
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Grad")]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(50, MinimumLength = 2,ErrorMessage ="Morate uneti bar 2 karaktera")]
         public string City { get; set; }
+
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Postanski Broj")]
-        [StringLength(5, ErrorMessage = "Pib sadrzi 5 cifara!")]
+        [StringLength(5, ErrorMessage = "Postanski Broj sadrzi 5 cifara!")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Morate uneti brojeve")]
         public string Zip_Code { get; set; }
+
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Adresa i broj")]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3,ErrorMessage ="Morate da ubesete minimum 3 karaktera, a ne vise od 50!")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "polje je obavezno")]
+
+        [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Broj telefona")]
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Broj nije validan,10 brojeva sa pozivnim")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Moraju biti numericki brojevi")]
+        [StringLength(11, MinimumLength = 9, ErrorMessage = "Broj telefona sadrzi 9 ili 11 brojeva, zajedno sa pozivnim")]
+        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Broj nije validan,10 brojeva sa pozivnim")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Polje je obavezno")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [EmailAddress(ErrorMessage = "Unesite validnu e-mail adresu")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "polje je obavezno")]
-        [StringLength(250, MinimumLength = 3)]
+
+        [Display(Name = "Web Sajt Salona")]
+        [Required(ErrorMessage = "Polje je obavezno")]
+        [StringLength(50, MinimumLength = 3,ErrorMessage ="Web sajt mora da sadrzi minimum 3 karaktera, a ne vise od 50!")]
+        //[DataType(DataType.Url,ErrorMessage ="Unesite validan URL")]
         public string Web_Site { get; set; }
+
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "PIB")]
-        [StringLength(8, ErrorMessage = "Pib sadrzi 8 cifara!")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "UPRN must be numeric")]
+        [StringLength(8, MinimumLength = 8, ErrorMessage = "Pib sadrzi tacno 8 cifara!")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Moraju biti numericki brojevi")]
         public string PIB { get; set; }
 
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Bankovni Racun")]
-        [StringLength(18, ErrorMessage = "bankovni racun sadrzi 18 cifara!")]
-        [RegularExpression("^[0-9]{3}-[0-9]{3}$", ErrorMessage = "Morate uneti brojeve")]
+        [StringLength(18, MinimumLength = 10, ErrorMessage = "Bankovni racun sadrzi od 10 do 18 cifara!")]
+        //[RegularExpression("^[0-9]{3}-[0-9]{3}$", ErrorMessage = "Morate uneti brojeve")]
         public string Bank_Account { get; set; }
         public bool Status { get; set; }
 

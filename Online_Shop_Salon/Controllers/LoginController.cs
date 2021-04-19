@@ -27,7 +27,7 @@ namespace Online_Shop_Salon.Controllers
         [HttpPost]
         public ActionResult Register(tbl_Account user)
         {
-            var check = db.tbl_Account.FirstOrDefault(s => s.Email == user.Email && s.UserName == user.UserName);
+            var check = db.tbl_Account.FirstOrDefault(s => s.Email == user.Email || s.UserName == user.UserName);
             if (check == null)
             {
 
@@ -41,8 +41,13 @@ namespace Online_Shop_Salon.Controllers
                 TempData["Message_Register_Success"] = "Uspesno ste se registrovali!";
                 return RedirectToAction("Login", "Login");
             }
-            TempData["Message_Register_Error"] = "Email postoji u bazi!";
-            return RedirectToAction("Register", "login");
+            else
+            {
+                TempData["Message_Register_Error"] = "Email/UserName postoji u bazi!";
+                return RedirectToAction("Register", "login");
+                
+            }
+            
         }
         #endregion
 

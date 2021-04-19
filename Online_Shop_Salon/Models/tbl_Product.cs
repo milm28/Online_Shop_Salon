@@ -25,30 +25,31 @@ namespace Online_Shop_Salon.Models
         public int Product_Id { get; set; }
         [Display(Name = "Ime Proizvda")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(150)]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
+        [StringLength(50,ErrorMessage ="Maksimalno moze 50 karaktera!")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
         public string Product_Name { get; set; }
 
         [Display(Name = "Zemlja Porekla")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Maksimalno moze 50 karaktera!")]
         public string Made_In { get; set; }
 
         [Display(Name = "Godina Proizvodnje")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(4, ErrorMessage = "Unosimo samo godinu yyyy!")]
+        [StringLength(4, ErrorMessage = "Unesi samo godinu yyyy!")]
         public string Made_Year { get; set; }
 
         [Display(Name = "Cena po Komadu")]
         [Required(ErrorMessage = "Polje je obavezno")]
         [Range(0.0, 1000000, ErrorMessage = "Cena ne moze da bude preko 1000000.00!")]
-        [DataType(DataType.Currency)]
-
+        //[DataType(DataType.Currency,ErrorMessage ="Nije validna Cena ")]
+        [RegularExpression(@"^\d+\.\d{0,2}$",ErrorMessage ="Broj mora biti decimalan")]
         public decimal Price_Per { get; set; }
 
         [Display(Name = "Kolicina u salonu")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [Range(0, 1000, ErrorMessage = "Maksimalno mozete da unesete 500")]
+        [Range(0, 1000, ErrorMessage = "Maksimalno mozete da unesete 500 komada")]
+       
         public int Quantity_Stock { get; set; }
 
         [Display(Name = "Izaberi Salon")]

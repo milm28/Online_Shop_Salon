@@ -1,0 +1,412 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- --------------------------------------------------
+-- Date Created: 04/19/2021 12:22:17
+-- Generated from EDMX file: C:\Users\Milm\Desktop\Salon Namestaja Online\Online_Shop_Salon\Online_Shop_Salon\Models\DBModel.edmx
+-- --------------------------------------------------
+
+SET QUOTED_IDENTIFIER OFF;
+GO
+USE [Online_shop];
+GO
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
+GO
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[FK_tbl_Account_tbl_Role]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Account] DROP CONSTRAINT [FK_tbl_Account_tbl_Role];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Category_tbl_Category]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Category] DROP CONSTRAINT [FK_tbl_Category_tbl_Category];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Invoice_Detail_tbl_Invoice_Id]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Invoice_Detail] DROP CONSTRAINT [FK_tbl_Invoice_Detail_tbl_Invoice_Id];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Invoice_Detail_tbl_product_id]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Invoice_Detail] DROP CONSTRAINT [FK_tbl_Invoice_Detail_tbl_product_id];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Invoice_Detail_tbl_Store]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Invoice_Detail] DROP CONSTRAINT [FK_tbl_Invoice_Detail_tbl_Store];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Invoice_tbl_Account]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Invoice] DROP CONSTRAINT [FK_tbl_Invoice_tbl_Account];
+GO
+IF OBJECT_ID(N'[dbo].[FK_tbl_Photo_tbl_Product]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tbl_Photo] DROP CONSTRAINT [FK_tbl_Photo_tbl_Product];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[Logins]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Logins];
+GO
+IF OBJECT_ID(N'[dbo].[SlideShow]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SlideShow];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Account]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Account];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Category]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Category];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Invoice]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Invoice];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Invoice_Detail]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Invoice_Detail];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Photo]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Photo];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Product]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Product];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Role]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Role];
+GO
+IF OBJECT_ID(N'[dbo].[tbl_Store]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tbl_Store];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'SlideShows'
+CREATE TABLE [dbo].[SlideShows] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(250)  NOT NULL,
+    [Status] bit  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Account'
+CREATE TABLE [dbo].[tbl_Account] (
+    [Account_Id] int IDENTITY(1,1) NOT NULL,
+    [UserName] nvarchar(50)  NOT NULL,
+    [Password] nvarchar(50)  NOT NULL,
+    [FirstName] nvarchar(50)  NOT NULL,
+    [LastName] nvarchar(50)  NOT NULL,
+    [Role_Id] int  NOT NULL,
+    [City] nvarchar(50)  NOT NULL,
+    [Address] nvarchar(50)  NOT NULL,
+    [Email] nvarchar(150)  NOT NULL,
+    [Status] bit  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Category'
+CREATE TABLE [dbo].[tbl_Category] (
+    [Category_Id] int IDENTITY(1,1) NOT NULL,
+    [Category_Name] nvarchar(50)  NOT NULL,
+    [Description] nvarchar(550)  NULL,
+    [ParentId] int  NULL,
+    [Status] bit  NOT NULL,
+    [Category_Image] nvarchar(250)  NULL
+);
+GO
+
+-- Creating table 'tbl_Invoice'
+CREATE TABLE [dbo].[tbl_Invoice] (
+    [Invoice_Id] int IDENTITY(1,1) NOT NULL,
+    [Created] datetime  NOT NULL,
+    [Status] bit  NOT NULL,
+    [Account_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Invoice_Detail'
+CREATE TABLE [dbo].[tbl_Invoice_Detail] (
+    [Invoice_Id] int  NOT NULL,
+    [Product_Id] int  NOT NULL,
+    [Quantity] int  NOT NULL,
+    [Tax] int  NOT NULL,
+    [Total_Price_Tax] decimal(12,2)  NOT NULL,
+    [Price_Per] decimal(12,2)  NOT NULL,
+    [Store_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Photo'
+CREATE TABLE [dbo].[tbl_Photo] (
+    [Image_Id] int IDENTITY(1,1) NOT NULL,
+    [Image_Name] nvarchar(150)  NOT NULL,
+    [Status] bit  NOT NULL,
+    [Product_Id] int  NOT NULL,
+    [Main_Image] bit  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Product'
+CREATE TABLE [dbo].[tbl_Product] (
+    [Product_Id] int IDENTITY(1,1) NOT NULL,
+    [Product_Name] nvarchar(150)  NOT NULL,
+    [Made_In] nvarchar(50)  NOT NULL,
+    [Made_Year] nvarchar(4)  NOT NULL,
+    [Price_Per] decimal(12,2)  NOT NULL,
+    [Quantity_Stock] int  NOT NULL,
+    [StoreId] int  NOT NULL,
+    [Category_Id] int  NOT NULL,
+    [Status] bit  NOT NULL
+);
+GO
+
+-- Creating table 'tbl_Role'
+CREATE TABLE [dbo].[tbl_Role] (
+    [Role_Id] int IDENTITY(1,1) NOT NULL,
+    [Role_Name] nvarchar(50)  NULL,
+    [Status] bit  NULL
+);
+GO
+
+-- Creating table 'tbl_Store'
+CREATE TABLE [dbo].[tbl_Store] (
+    [Store_Id] int IDENTITY(1,1) NOT NULL,
+    [Store_Name] nvarchar(50)  NOT NULL,
+    [Owner_Name] nvarchar(50)  NOT NULL,
+    [City] nvarchar(50)  NOT NULL,
+    [Zip_Code] nvarchar(10)  NOT NULL,
+    [Address] nvarchar(50)  NOT NULL,
+    [Phone] nvarchar(50)  NOT NULL,
+    [Email] nvarchar(50)  NOT NULL,
+    [Web_Site] nvarchar(250)  NOT NULL,
+    [PIB] nvarchar(50)  NOT NULL,
+    [Bank_Account] nvarchar(50)  NOT NULL,
+    [Status] bit  NOT NULL
+);
+GO
+
+-- Creating table 'Logins'
+CREATE TABLE [dbo].[Logins] (
+    [Email] nvarchar(128)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [Id] in table 'SlideShows'
+ALTER TABLE [dbo].[SlideShows]
+ADD CONSTRAINT [PK_SlideShows]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Account_Id] in table 'tbl_Account'
+ALTER TABLE [dbo].[tbl_Account]
+ADD CONSTRAINT [PK_tbl_Account]
+    PRIMARY KEY CLUSTERED ([Account_Id] ASC);
+GO
+
+-- Creating primary key on [Category_Id] in table 'tbl_Category'
+ALTER TABLE [dbo].[tbl_Category]
+ADD CONSTRAINT [PK_tbl_Category]
+    PRIMARY KEY CLUSTERED ([Category_Id] ASC);
+GO
+
+-- Creating primary key on [Invoice_Id] in table 'tbl_Invoice'
+ALTER TABLE [dbo].[tbl_Invoice]
+ADD CONSTRAINT [PK_tbl_Invoice]
+    PRIMARY KEY CLUSTERED ([Invoice_Id] ASC);
+GO
+
+-- Creating primary key on [Invoice_Id], [Product_Id], [Store_Id] in table 'tbl_Invoice_Detail'
+ALTER TABLE [dbo].[tbl_Invoice_Detail]
+ADD CONSTRAINT [PK_tbl_Invoice_Detail]
+    PRIMARY KEY CLUSTERED ([Invoice_Id], [Product_Id], [Store_Id] ASC);
+GO
+
+-- Creating primary key on [Image_Id] in table 'tbl_Photo'
+ALTER TABLE [dbo].[tbl_Photo]
+ADD CONSTRAINT [PK_tbl_Photo]
+    PRIMARY KEY CLUSTERED ([Image_Id] ASC);
+GO
+
+-- Creating primary key on [Product_Id] in table 'tbl_Product'
+ALTER TABLE [dbo].[tbl_Product]
+ADD CONSTRAINT [PK_tbl_Product]
+    PRIMARY KEY CLUSTERED ([Product_Id] ASC);
+GO
+
+-- Creating primary key on [Role_Id] in table 'tbl_Role'
+ALTER TABLE [dbo].[tbl_Role]
+ADD CONSTRAINT [PK_tbl_Role]
+    PRIMARY KEY CLUSTERED ([Role_Id] ASC);
+GO
+
+-- Creating primary key on [Store_Id] in table 'tbl_Store'
+ALTER TABLE [dbo].[tbl_Store]
+ADD CONSTRAINT [PK_tbl_Store]
+    PRIMARY KEY CLUSTERED ([Store_Id] ASC);
+GO
+
+-- Creating primary key on [Email] in table 'Logins'
+ALTER TABLE [dbo].[Logins]
+ADD CONSTRAINT [PK_Logins]
+    PRIMARY KEY CLUSTERED ([Email] ASC);
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [Role_Id] in table 'tbl_Account'
+ALTER TABLE [dbo].[tbl_Account]
+ADD CONSTRAINT [FK_tbl_Account_tbl_Role]
+    FOREIGN KEY ([Role_Id])
+    REFERENCES [dbo].[tbl_Role]
+        ([Role_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Account_tbl_Role'
+CREATE INDEX [IX_FK_tbl_Account_tbl_Role]
+ON [dbo].[tbl_Account]
+    ([Role_Id]);
+GO
+
+-- Creating foreign key on [Account_Id] in table 'tbl_Invoice'
+ALTER TABLE [dbo].[tbl_Invoice]
+ADD CONSTRAINT [FK_tbl_Invoice_tbl_Account]
+    FOREIGN KEY ([Account_Id])
+    REFERENCES [dbo].[tbl_Account]
+        ([Account_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Invoice_tbl_Account'
+CREATE INDEX [IX_FK_tbl_Invoice_tbl_Account]
+ON [dbo].[tbl_Invoice]
+    ([Account_Id]);
+GO
+
+-- Creating foreign key on [ParentId] in table 'tbl_Category'
+ALTER TABLE [dbo].[tbl_Category]
+ADD CONSTRAINT [FK_tbl_Category_tbl_Category]
+    FOREIGN KEY ([ParentId])
+    REFERENCES [dbo].[tbl_Category]
+        ([Category_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Category_tbl_Category'
+CREATE INDEX [IX_FK_tbl_Category_tbl_Category]
+ON [dbo].[tbl_Category]
+    ([ParentId]);
+GO
+
+-- Creating foreign key on [Category_Id] in table 'tbl_Product'
+ALTER TABLE [dbo].[tbl_Product]
+ADD CONSTRAINT [FK_tbl_Product_tbl_Category]
+    FOREIGN KEY ([Category_Id])
+    REFERENCES [dbo].[tbl_Category]
+        ([Category_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Product_tbl_Category'
+CREATE INDEX [IX_FK_tbl_Product_tbl_Category]
+ON [dbo].[tbl_Product]
+    ([Category_Id]);
+GO
+
+-- Creating foreign key on [Invoice_Id] in table 'tbl_Invoice_Detail'
+ALTER TABLE [dbo].[tbl_Invoice_Detail]
+ADD CONSTRAINT [FK_tbl_Invoice_Detail_tbl_Invoice_Id]
+    FOREIGN KEY ([Invoice_Id])
+    REFERENCES [dbo].[tbl_Invoice]
+        ([Invoice_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Product_Id] in table 'tbl_Invoice_Detail'
+ALTER TABLE [dbo].[tbl_Invoice_Detail]
+ADD CONSTRAINT [FK_tbl_Invoice_Detail_tbl_product_id]
+    FOREIGN KEY ([Product_Id])
+    REFERENCES [dbo].[tbl_Product]
+        ([Product_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Invoice_Detail_tbl_product_id'
+CREATE INDEX [IX_FK_tbl_Invoice_Detail_tbl_product_id]
+ON [dbo].[tbl_Invoice_Detail]
+    ([Product_Id]);
+GO
+
+-- Creating foreign key on [Product_Id] in table 'tbl_Photo'
+ALTER TABLE [dbo].[tbl_Photo]
+ADD CONSTRAINT [FK_tbl_Photo_tbl_Product]
+    FOREIGN KEY ([Product_Id])
+    REFERENCES [dbo].[tbl_Product]
+        ([Product_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Photo_tbl_Product'
+CREATE INDEX [IX_FK_tbl_Photo_tbl_Product]
+ON [dbo].[tbl_Photo]
+    ([Product_Id]);
+GO
+
+-- Creating foreign key on [StoreId] in table 'tbl_Product'
+ALTER TABLE [dbo].[tbl_Product]
+ADD CONSTRAINT [FK_tbl_Product_tbl_Store]
+    FOREIGN KEY ([StoreId])
+    REFERENCES [dbo].[tbl_Store]
+        ([Store_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Product_tbl_Store'
+CREATE INDEX [IX_FK_tbl_Product_tbl_Store]
+ON [dbo].[tbl_Product]
+    ([StoreId]);
+GO
+
+-- Creating foreign key on [Store_Id] in table 'tbl_Invoice_Detail'
+ALTER TABLE [dbo].[tbl_Invoice_Detail]
+ADD CONSTRAINT [FK_tbl_Invoice_Detail_tbl_Store]
+    FOREIGN KEY ([Store_Id])
+    REFERENCES [dbo].[tbl_Store]
+        ([Store_Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_tbl_Invoice_Detail_tbl_Store'
+CREATE INDEX [IX_FK_tbl_Invoice_Detail_tbl_Store]
+ON [dbo].[tbl_Invoice_Detail]
+    ([Store_Id]);
+GO
+
+-- --------------------------------------------------
+-- 
+-- --------------------------------------------------
+INSERT INTO [dbo].[tbl_Role]([Role_Name],[Status])VALUES('Admin',1)
+INSERT INTO [dbo].[tbl_Role]([Role_Name],[Status])VALUES('User',1)
+INSERT INTO [dbo].[tbl_Account]([UserName],[Password],[FirstName],[LastName],[Role_Id],[City],[Address],[Email],[Status])VALUES('Admin','MTIz','Admin','Admin',1,'Crvenka','Zmaj Jovina 17','admin@admin.com',1)
+INSERT INTO [dbo].[tbl_Account]([UserName],[Password],[FirstName],[LastName],[Role_Id],[City],[Address],[Email],[Status])VALUES('Nikola','MTIz','Nikola','Nikolic',2,'Novi Sad','Balkanska, 21','nikola@gmail.com',1)
+
+INSERT INTO [dbo].[SlideShow]([Name],[Status]) VALUES ('../ImageSlider/soba-2211122648.jpg',1)
+INSERT INTO [dbo].[SlideShow]([Name],[Status]) VALUES ('../ImageSlider/soba-3211129161.jpg',1)
+INSERT INTO [dbo].[SlideShow]([Name],[Status]) VALUES ('../ImageSlider/soba-4211136894.jpg',1)
+
+
+-- -----------------------------------------------------
+INSERT INTO [dbo].[tbl_Store]([Store_Name],[Owner_Name],[City],[Zip_Code],[Address],[Phone],[Email],[Web_Site],[PIB],[Bank_Account],[Status])VALUES('Salon Namestaja','Nikola Petrovic','Novi Sad','21000','Sajam bb','0215554444','salonnamestaja@gmail.com','www.sajam.com','1254569','2225-555-555-44',1)
+
+-- -------------------------------------------------------------------------------------------
+
+INSERT INTO [dbo].[tbl_Category]([Category_Name],[Description],[ParentId],[Status],[Category_Image])VALUES('Dnevna Soba','Lorem Ipsum is simply dummy text of the printing and typesetting industry.',NULL,1,'/content/img/kategorije/dnev-sobe.jpg')
+INSERT INTO [dbo].[tbl_Category]([Category_Name],[Description],[ParentId],[Status],[Category_Image])VALUES('Kuhinje','Lorem Ipsum is simply dummy text of the printing and typesetting industry.',NULL,1,'/content/img/kategorije/Kuhinja.jpg')
+INSERT INTO [dbo].[tbl_Category]([Category_Name],[Description],[ParentId],[Status],[Category_Image])VALUES('Predsoblje','Lorem Ipsum is simply dummy text of the printing and typesetting industry.',NULL,1,'/content/img/kategorije/Predsoblje2.jpg')
+INSERT INTO [dbo].[tbl_Category]([Category_Name],[Description],[ParentId],[Status],[Category_Image])VALUES('Spavaca Soba','Lorem Ipsum is simply dummy text of the printing and typesetting industry.',NULL,1,'/content/img/kategorije/spavaca-komplet-sub.png')
+
+

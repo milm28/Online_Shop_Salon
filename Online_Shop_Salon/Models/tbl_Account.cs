@@ -29,16 +29,15 @@ namespace Online_Shop_Salon.Models
 
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Password")]
-
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3,ErrorMessage ="Password mora da sadrži najmanje 3 karaktera, a najvise 50")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Ime")]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Ime mora da sadrži najmanje 2 karaktera")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Prezime")]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Prezime mora da sadrži najmanje 2 karaktera")]
         public string LastName { get; set; }
         
         [Display(Name = "Role")]
@@ -46,14 +45,14 @@ namespace Online_Shop_Salon.Models
         public int Role_Id { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Grad")]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Grad mora da sadrži najmanje 2 karaktera")]
         public string City { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
         [Display(Name = "Adresa i broj")]
-        [StringLength(50, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Adresa i Broj mora da sadrži najmanje 2 karaktera")]
         public string Address { get; set; }
         [Required(ErrorMessage = "Polje je obavezno")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [EmailAddress(ErrorMessage = "Unesite validnu e-mail adresu")]
         public string Email { get; set; }
         public bool Status { get; set; }
 

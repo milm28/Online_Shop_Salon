@@ -12,7 +12,7 @@
 <p>
     @Html.ActionLink(" Dodaj Korisnika", "Create", null, new { @class = "btn btn-success fa fa-plus" })
 </p>
-<table id="tableAccount" class="uk-table uk-table-hover uk-table-striped" style="width: 100%;">
+<table id="tableAccount" class="uk-table uk-table-hover uk-table-striped" style="width: 100%;text-align:center;">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(model => model.UserName)</th>
@@ -35,7 +35,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.tbl_Role.Role_Name)
             </th>
-            <th>Tools</th>
+            @*<th>Tools</th>*@
 
         </tr>
     </thead>
@@ -71,9 +71,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.tbl_Role.Role_Name)
                 </td>
-                <td>
+                @*<td>
                     @Html.ActionLink(" ", "Edit", new { id = item.Account_Id }, new { @class = "btn btn-sm btn-info fa fa-pencil fa-lg" })
-                </td>
+                </td>*@
             </tr>
         }
     </tbody>

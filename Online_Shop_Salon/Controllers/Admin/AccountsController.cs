@@ -37,10 +37,23 @@ namespace Online_Shop_Salon.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
-                tbl_Account.Password = Encode(tbl_Account.Password);
-                db.tbl_Account.Add(tbl_Account);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var check = db.tbl_Account.FirstOrDefault(s => s.Email == tbl_Account.Email || s.UserName == tbl_Account.UserName);
+                if (check == null)
+                {
+                    tbl_Account.Password = Encode(tbl_Account.Password);
+                    db.tbl_Account.Add(tbl_Account);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message_Register_Error"] = "Email ili UserName postoje u bazi!";
+                    ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name");
+                    //return RedirectToAction("Create", "Accounts");
+                    return View();
+                }
+                
+
             }
 
             ViewBag.Role_Id = new SelectList(db.tbl_Role, "Role_Id", "Role_Name", tbl_Account.Role_Id);

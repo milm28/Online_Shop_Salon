@@ -30,6 +30,17 @@
     <div class="container">
         <div class="row row h-100 align-items-center justify-content-centerr">
             <div class="col align-self-cente ">
+                @if (TempData["Message_Register_Error"] != null)
+                {
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                <strong> @TempData["Message_Register_Error"]</strong>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <div class="card">
                     <div class="card-header text-center display-4">
                         Registracija
@@ -78,25 +89,25 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label " })
-                      
-                                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-md-4">
                                 @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label " })
                                 @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-md-4 ">
                                 <div class="col-md-6">
                                     @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label " })
                                 </div>
                                 <div class="col-md-6">
-                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label"} })
-                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                                 </div>
+                                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "control-label" } })
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                         </div>
+                        </div>
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-6 ">
                                 <div class="col-md-12">

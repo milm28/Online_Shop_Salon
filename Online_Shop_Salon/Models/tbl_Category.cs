@@ -26,8 +26,8 @@ namespace Online_Shop_Salon.Models
         public int Category_Id { get; set; }
         [Display(Name = "Ime Kategorije")]
         [Required(ErrorMessage = "Polje je obavezno")]
-        [StringLength(50)]
-        [RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
+        [StringLength(50,ErrorMessage ="Maksimalno je 50 karaktera!")]
+        //[RegularExpression(@"^[a-zA-Z]+[ a-zA-Z-_]*$", ErrorMessage = "Koristi samo slova")]
         public string Category_Name { get; set; }
 
         [Display(Name = "Opis Kategorije")]
